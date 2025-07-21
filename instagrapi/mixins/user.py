@@ -173,11 +173,39 @@ class UserMixin:
             f"https://www.instagram.com/api/v1/users/web_profile_info/?username={username}",
             headers=temporary_public_headers,
         )
-        print("Response from web_profile_info:", response_text)
-        data = extract_user_gql(
-            json.loads(response_text)["data"]["user"]
-        )
-        return data
+        output_filename = f"instagram_response_{username}.json"
+        try:
+            # Attempt to pretty-print if it's valid JSON
+            parsed_content = json.loads(response_text)
+            with open(output_filename, 'w', encoding='utf-8') as f:
+                json.dump(parsed_content, f, indent=4, ensure_ascii=False)
+            print(f"Successfully saved pretty-printed JSON response to: {output_filename}")
+        except json.JSONDecodeError:
+            # If not valid JSON, save as plain text
+            with open(output_filename, 'w', encoding='utf-8') as f:
+                f.write(response_text)
+            print(f"Saved raw text response (not valid JSON) to: {output_filename}")
+        except Exception as e:
+            print(f"Error saving response to file: {e}")
+            # Fallback to print if file saving completely fails for some reason
+            print("Response from web_profile_info (fallback print):", response_text)
+        # --- END MODIFIED PART ---
+
+        print("Response from web_profile_info saved to file")
+        try:
+            data = extract_user_gql(
+                json.loads(response_text)["data"]["user"]
+            )
+            return data
+        except json.JSONDecodeError:
+            print("Error: The response was not valid JSON. Cannot extract 'data' or 'user'.")
+            # You might want to return None or raise a specific error here
+            raise
+        except KeyError as e:
+            print(f"KeyError: {e} - Expected key not found in response JSON.")
+            print("This likely means the Instagram API structure has changed or the request failed to get expected data.")
+            # You might want to return None or raise a specific error here
+            raise
 
     def user_info_by_username_v1(self, username: str) -> User:
         """
