@@ -169,14 +169,13 @@ class UserMixin:
             "Priority": "u=1, i",
         }
         update_headers = False
+        response_text = self.public_request(
+            f"https://www.instagram.com/api/v1/users/web_profile_info/?username={username}",
+            headers=temporary_public_headers,
+        )
+        print("Response from web_profile_info:", response_text)
         data = extract_user_gql(
-            json.loads(
-                self.public_request(
-                    f"https://www.instagram.com/api/v1/users/web_profile_info/?username={username}",
-                    headers=temporary_public_headers,
-                )
-            )["data"]["user"],
-            update_headers=update_headers,
+            json.loads(response_text)["data"]["user"]
         )
         return data
 
