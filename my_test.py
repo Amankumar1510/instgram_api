@@ -12,8 +12,8 @@ if not ACCOUNT_USERNAME or not ACCOUNT_PASSWORD:
 else:
     cl = Client()
     try:
-        # cl.login(ACCOUNT_USERNAME, ACCOUNT_PASSWORD)
-        # print("Login successful!")
+        cl.login(ACCOUNT_USERNAME, ACCOUNT_PASSWORD)
+        print("Login successful!")
 
         # user_id = cl.user_id_from_username(ACCOUNT_USERNAME)
         # medias = cl.user_medias(user_id, 20)
