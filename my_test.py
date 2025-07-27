@@ -5,7 +5,7 @@ from instagrapi import Client
 # ACCOUNT_USERNAME = os.environ.get("INSTA_USERNAME")
 # ACCOUNT_PASSWORD = os.environ.get("INSTA_PASSWORD")
 ACCOUNT_USERNAME = "_.aman._kumar._"
-ACCOUNT_PASSWORD = "Iam2an1510@"
+ACCOUNT_PASSWORD = ""
 
 if not ACCOUNT_USERNAME or not ACCOUNT_PASSWORD:
     print("Error: Please set the INSTA_USERNAME and INSTA_PASSWORD environment variables.")

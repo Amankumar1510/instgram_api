@@ -277,7 +277,7 @@ class PublicRequestMixin:
                     ),
                     response=body_json,
                 )
-            output_filename = f"user_medias_public_Req_{user_id}.json"
+            output_filename = f"user_medias_public_Req.json"
 
             try:
                 with open(output_filename, 'w', encoding='utf-8') as f:
