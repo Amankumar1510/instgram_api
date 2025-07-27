@@ -277,8 +277,18 @@ class PublicRequestMixin:
                     ),
                     response=body_json,
                 )
+            output_filename = f"user_medias_public_Req_{user_id}.json"
 
-            return body_json["data"]
+            try:
+                with open(output_filename, 'w', encoding='utf-8') as f:
+                    json.dump(body_json, f, indent=4, ensure_ascii=False)
+                self.public_request_logger.info(f"Saved GraphQL response to: {output_filename}")
+            except Exception as e:
+                self.public_request_logger.error(f"Error saving GraphQL response to file {output_filename}: {e}")
+                # Optionally, print to console as fallback if file saving fails
+                # print("GraphQL response (fallback print):", json.dumps(data, indent=2))
+            return body_json
+            # return body_json["data"]
 
         except ClientBadRequestError as e:
             message = None

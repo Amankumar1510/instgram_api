@@ -33,7 +33,7 @@ class Resource(TypesBaseModel):
 
 
 class BioLink(TypesBaseModel):
-    link_id: str
+    link_id: Optional[str] = None
     url: str
     lynx_url: Optional[str] = None
     link_type: Optional[str] = None
@@ -57,7 +57,7 @@ class Broadcast(TypesBaseModel):
 
 
 class User(TypesBaseModel):
-    pk: str
+    pk: Optional[str] = None
     username: str
     full_name: str
     is_private: bool
@@ -68,7 +68,7 @@ class User(TypesBaseModel):
     follower_count: int
     following_count: int
     biography: Optional[str] = ""
-    bio_links: List[BioLink] = []
+    bio_links: Optional[List[BioLink]] = []
     external_url: Optional[str] = None
     account_type: Optional[int] = None
     is_business: bool
