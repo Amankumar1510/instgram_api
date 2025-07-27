@@ -467,6 +467,17 @@ class MediaMixin:
         data = self.public_graphql_request(
             variables, query_hash="e7e2f4da4b02303f74f0841279e52d76"
         )
+        cursor_suffix = end_cursor if end_cursor else "start"
+        output_filename = f"user_medias_gql_response_{user_id}_{cursor_suffix}.json"
+
+        try:
+            with open(output_filename, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=4, ensure_ascii=False)
+            self.public_request_logger.info(f"Saved GraphQL response to: {output_filename}")
+        except Exception as e:
+            self.public_request_logger.error(f"Error saving GraphQL response to file {output_filename}: {e}")
+            # Optionally, print to console as fallback if file saving fails
+            # print("GraphQL response (fallback print):", json.dumps(data, indent=2))
         page_info = json_value(
             data, "user", "edge_owner_to_timeline_media", "page_info", default={}
         )

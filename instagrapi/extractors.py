@@ -205,9 +205,9 @@ def extract_broadcast_channel(data):
 
 def extract_user_gql(data):
     """For Public GraphQL API"""
-    data["broadcast_channel"] = extract_broadcast_channel(data)
+    # data["broadcast_channel"] = extract_broadcast_channel(data)
     return User(
-        pk=data["id"],
+        # pk=data["id"],
         media_count=data["edge_owner_to_timeline_media"]["count"],
         follower_count=data["edge_followed_by"]["count"],
         following_count=data["edge_follow"]["count"],

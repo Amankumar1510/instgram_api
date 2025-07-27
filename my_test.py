@@ -12,17 +12,17 @@ if not ACCOUNT_USERNAME or not ACCOUNT_PASSWORD:
 else:
     cl = Client()
     try:
-        cl.login(ACCOUNT_USERNAME, ACCOUNT_PASSWORD)
-        print("Login successful!")
+        # cl.login(ACCOUNT_USERNAME, ACCOUNT_PASSWORD)
+        # print("Login successful!")
 
-        user_id = cl.user_id_from_username(ACCOUNT_USERNAME)
-        medias = cl.user_medias(user_id, 20)
+        # user_id = cl.user_id_from_username(ACCOUNT_USERNAME)
+        # medias = cl.user_medias(user_id, 20)
 
-        print(f"Found {len(medias)} medias for user {ACCOUNT_USERNAME}:")
-        for i, media in enumerate(medias):
-            print(f"  {i+1}. Media PK: {media.pk}, Type: {media.media_type}, URL: {media.thumbnail_url}")
+        # print(f"Found {len(medias)} medias for user {ACCOUNT_USERNAME}:")
+        # for i, media in enumerate(medias):
+        #     print(f"  {i+1}. Media PK: {media.pk}, Type: {media.media_type}, URL: {media.thumbnail_url}")
 
-        target_id = cl.user_id_from_username("nazilx")
+        target_id = cl.user_id_from_username("rvcjinsta")
         posts = cl.user_medias(target_id, amount=10)
         for media in posts:
             # download photos to the current folder
