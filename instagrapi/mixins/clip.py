@@ -40,6 +40,7 @@ class DownloadClipMixin:
         -------
         str
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/clip.py -> clip_download")
         return self.video_download(media_pk, folder)
 
     def clip_download_by_url(
@@ -61,6 +62,7 @@ class DownloadClipMixin:
         -------
         str
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/clip.py -> clip_download_by_url")
         return self.video_download_by_url(url, filename, folder)
 
 
@@ -107,6 +109,7 @@ class UploadClipMixin:
         Media
             An object of Media class
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/clip.py -> clip_upload")
         path = Path(path)
         if thumbnail is not None:
             thumbnail = Path(thumbnail)
@@ -231,6 +234,7 @@ class UploadClipMixin:
         Media
             A Media response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/clip.py -> clip_upload_as_reel_with_music")
         tmpaudio = Path(tempfile.mktemp(".m4a"))
         tmpaudio = self.track_download_by_url(track.uri, "track", tmpaudio.parent)
         try:
@@ -339,6 +343,7 @@ class UploadClipMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/clip.py -> clip_configure")
         self.photo_rupload(Path(thumbnail), upload_id)
         usertags = [
             {"user_id": tag.user.pk, "position": [tag.x, tag.y]} for tag in usertags
@@ -388,6 +393,7 @@ def analyze_video(path: Path, thumbnail: Path = None) -> tuple:
     Tuple
         A tuple with (thumbail path, width, height, duration)
     """
+    print(f"[TRACE] ENTERING: instagrapi/mixins/clip.py -> analyze_video")
     try:
         import moviepy.editor as mp
     except ImportError:
@@ -421,6 +427,7 @@ def crop_thumbnail(path: Path) -> bool:
     bool
         A boolean value
     """
+    print(f"[TRACE] ENTERING: instagrapi/mixins/clip.py -> crop_thumbnail")
     im = Image.open(str(path))
     width, height = im.size
     offset = (height / 1.78) / 2

@@ -13,6 +13,7 @@ class FbSearchMixin:
     def fbsearch_places(
         self, query: str, lat: float = 40.74, lng: float = -73.94
     ) -> List[Location]:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/fbsearch.py -> fbsearch_places")
         params = {
             "search_surface": "places_search_page",
             "timezone_offset": self.timezone_offset,
@@ -28,6 +29,7 @@ class FbSearchMixin:
         return locations
 
     def fbsearch_topsearch_flat(self, query: str) -> List[dict]:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/fbsearch.py -> fbsearch_topsearch_flat")
         params = {
             "search_surface": "top_search_page",
             "context": "blended",
@@ -39,6 +41,7 @@ class FbSearchMixin:
         return result["list"]
 
     def search_users(self, query: str) -> List[UserShort]:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/fbsearch.py -> search_users")
         params = {
             "search_surface": "user_search_page",
             "timezone_offset": self.timezone_offset,
@@ -49,6 +52,7 @@ class FbSearchMixin:
         return [extract_user_short(item) for item in result["users"]]
 
     def search_music(self, query: str) -> List[Track]:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/fbsearch.py -> search_music")
         params = {
             "query": query,
             "browse_session_id": self.generate_uuid(),
@@ -57,6 +61,7 @@ class FbSearchMixin:
         return [extract_track(item["track"]) for item in result["items"]]
 
     def search_hashtags(self, query: str) -> List[Hashtag]:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/fbsearch.py -> search_hashtags")
         params = {
             "search_surface": "hashtag_search_page",
             "timezone_offset": self.timezone_offset,
@@ -67,6 +72,7 @@ class FbSearchMixin:
         return [extract_hashtag_v1(ht) for ht in result["results"]]
 
     def fbsearch_suggested_profiles(self, user_id: str) -> List[UserShort]:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/fbsearch.py -> fbsearch_suggested_profiles")
         params = {
             "target_user_id": user_id,
             "include_friendship_status": "true",
@@ -83,6 +89,7 @@ class FbSearchMixin:
         List[Tuple[int, Union[UserShort, Hashtag, Dict]]]
             Returns list of Tuples where first value is timestamp of searh, second is retrived result
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/fbsearch.py -> fbsearch_recent")
         result = self.private_request("fbsearch/recent_searches/")
         assert result.get("status", "") == "ok", "Failed to retrieve recent searches"
 

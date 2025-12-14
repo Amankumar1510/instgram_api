@@ -58,6 +58,7 @@ class PreLoginFlowMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> pre_login_flow")
         # self.set_contact_point_prefill("prefill")
         # self.get_prefill_candidates(True)
         # self.set_contact_point_prefill("prefill")
@@ -79,6 +80,7 @@ class PreLoginFlowMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> get_prefill_candidates")
         data = {
             "android_device_id": self.android_device_id,
             "client_contact_points": '[{"type":"omnistring","value":"%s","source":"last_login_attempt"}]'
@@ -108,6 +110,7 @@ class PreLoginFlowMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> sync_device_features")
         data = {
             "id": self.uuid,
             "server_config_retrieval": "1",
@@ -134,6 +137,7 @@ class PreLoginFlowMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> sync_launcher")
         data = {
             "id": self.uuid,
             "server_config_retrieval": "1",
@@ -158,6 +162,7 @@ class PreLoginFlowMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> set_contact_point_prefill")
         data = {
             "phone_id": self.phone_id,
             "usage": usage,
@@ -180,6 +185,7 @@ class PostLoginFlowMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> login_flow")
         check_flow = []
         # chance = random.randint(1, 100) % 2 == 0
         # reason = "pull_to_refresh" if chance else "cold_start"
@@ -205,6 +211,7 @@ class PostLoginFlowMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> get_timeline_feed")
         headers = {
             "X-Ads-Opt-Out": "0",
             "X-DEVICE-ID": self.uuid,
@@ -261,6 +268,7 @@ class PostLoginFlowMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> get_reels_tray_feed")
         data = {
             "supported_capabilities_new": config.SUPPORTED_CAPABILITIES,
             "reason": reason,
@@ -359,6 +367,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> login_by_sessionid")
         assert isinstance(sessionid, str) and len(sessionid) > 30, "Invalid sessionid"
         self.settings["cookies"] = {"sessionid": sessionid}
         self.init()
@@ -402,6 +411,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> login")
         if username and password:
             self.username = username
             self.password = password
@@ -493,6 +503,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> one_tap_app_login")
         user_id = int(user_id)
         data = {
             "phone_id": self.phone_id,
@@ -514,6 +525,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> relogin")
         return self.login(self.username, self.password, relogin=True)
 
     @property
@@ -566,6 +578,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         Dict
             Current session settings as a Dict
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> get_settings")
         return {
             "uuids": {
                 "phone_id": self.phone_id,
@@ -599,6 +612,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         -------
         Bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> set_settings")
         self.settings = settings
         self.init()
         return True
@@ -617,6 +631,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         Dict
             Current session settings as a Dict
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> load_settings")
         with open(path, "r") as fp:
             self.set_settings(json.load(fp))
             return self.settings
@@ -634,6 +649,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         -------
         Bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> dump_settings")
         with open(path, "w") as fp:
             json.dump(self.get_settings(), fp, indent=4)
         return True
@@ -652,6 +668,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> set_device")
         self.device_settings = device or {
             "app_version": "269.0.0.18.75",
             "android_version": 26,
@@ -684,6 +701,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> set_user_agent")
         data = dict(self.device_settings, locale=self.locale)
         self.user_agent = user_agent or config.USER_AGENT_BASE.format(**data)
         # self.private.headers.update({"User-Agent": self.user_agent})  # changed in base_headers
@@ -707,6 +725,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> set_uuids")
         self.phone_id = uuids.get("phone_id", self.generate_uuid())
         self.uuid = uuids.get("uuid", self.generate_uuid())
         self.client_session_id = uuids.get("client_session_id", self.generate_uuid())
@@ -729,6 +748,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         str
             A stringified UUID
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> generate_uuid")
         return f"{prefix}{uuid.uuid4()}{suffix}"
 
     def generate_mutation_token(self) -> str:
@@ -740,6 +760,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         str
             A stringified int
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> generate_mutation_token")
         return str(random.randint(6800011111111111111, 6800099999999999999))
 
     def generate_android_device_id(self) -> str:
@@ -751,6 +772,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         str
             A random android device id
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> generate_android_device_id")
         return "android-%s" % hashlib.sha256(str(time.time()).encode()).hexdigest()[:16]
 
     def expose(self) -> Dict:
@@ -762,6 +784,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> expose")
         data = {"id": self.uuid, "experiment": "ig_android_profile_contextual_feed"}
         return self.private_request("qe/expose/", self.with_default_data(data))
 
@@ -774,6 +797,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         Dict
             A dictionary of default data
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> with_extra_data")
         return self.with_default_data(
             {
                 "phone_id": self.phone_id,
@@ -792,6 +816,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         Dict
             A dictionary of default data
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> with_default_data")
         return {
             "_uuid": self.uuid,
             # "_uid": str(self.user_id),
@@ -809,6 +834,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         Dict
             A dictionary of action data
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> with_action_data")
         return dict(self.with_default_data({"radio_type": "wifi-none"}), **data)
 
     def gen_user_breadcrumb(self, size: int) -> str:
@@ -825,6 +851,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         Str
             A string
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> gen_user_breadcrumb")
         key = "iN4$aGr0m"
         dt = int(time.time() * 1000)
         time_elapsed = random.randint(500, 1500) + size * random.randint(500, 1500)
@@ -855,17 +882,20 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> inject_sessionid_to_public")
         if self.sessionid:
             self.public.cookies.set("sessionid", self.sessionid)
             return True
         return False
 
     def logout(self) -> bool:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> logout")
         result = self.private_request("accounts/logout/", {"one_tap_app_login": True})
         return result["status"] == "ok"
 
     def parse_authorization(self, authorization) -> dict:
         """Parse authorization header"""
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> parse_authorization")
         try:
             b64part = authorization.rsplit(":", 1)[-1]
             if not b64part:
@@ -880,6 +910,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
         """Build authorization header
         Example: Bearer IGT:2:eaW9u.....aWQiOiI0NzM5=
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> authorization")
         if self.authorization_data:
             b64part = base64.b64encode(dumps(self.authorization_data).encode()).decode()
             return f"Bearer IGT:2:{b64part}"
@@ -888,6 +919,7 @@ class LoginMixin(PreLoginFlowMixin, PostLoginFlowMixin):
     def dump_instaman(self):
         # Example format: helen9151hernandez:AgcXb0GJhAP|Instagram 200.0.0.24.121 Android...
         # Long string with user credentials and device info
+        print(f"[TRACE] ENTERING: instagrapi/mixins/auth.py -> dump_instaman")
         uuids = ";".join(
             [
                 self.android_device_id.replace("android-", ""),

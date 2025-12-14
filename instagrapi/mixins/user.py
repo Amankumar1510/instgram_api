@@ -54,6 +54,7 @@ class UserMixin:
         -------
         'example' -> 1903424587
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_id_from_username")
         username = str(username).lower()
         return str(self.user_info_by_username(username).pk)
 
@@ -73,6 +74,7 @@ class UserMixin:
         UserShort
             An object of UserShort type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_short_gql")
         if use_cache:
             cache = self._userhorts_cache.get(user_id)
             if cache:
@@ -108,6 +110,7 @@ class UserMixin:
         -------
         1903424587 -> 'example'
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> username_from_user_id_gql")
         return self.user_short_gql(user_id).username
 
     def username_from_user_id(self, user_id: str) -> str:
@@ -128,6 +131,7 @@ class UserMixin:
         -------
         1903424587 -> 'example'
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> username_from_user_id")
         user_id = str(user_id)
         try:
             username = self.username_from_user_id_gql(user_id)
@@ -149,6 +153,7 @@ class UserMixin:
         User
             An object of User type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_info_by_username")
         username = str(username).lower()
         temporary_public_headers = {
             "Host": "www.instagram.com",
@@ -221,6 +226,7 @@ class UserMixin:
         User
             An object of User type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_info_by_username_v1")
         username = str(username).lower()
         try:
             result = self.private_request(f"users/{username}/usernameinfo/")
@@ -248,6 +254,7 @@ class UserMixin:
         User
             An object of User type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_info_by_username")
         username = str(username).lower()
         if not use_cache or username not in self._usernames_cache:
             try:
@@ -279,6 +286,7 @@ class UserMixin:
         User
             An object of User type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_info_gql")
         user_id = str(user_id)
         try:
             # GraphQL haven't method to receive user by id
@@ -311,6 +319,7 @@ class UserMixin:
         User
             An object of User type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_info_v1")
         user_id = str(user_id)
         try:
             params = {
@@ -350,6 +359,7 @@ class UserMixin:
         User
             An object of User type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_info")
         user_id = str(user_id)
         if not use_cache or user_id not in self._users_cache:
             try:
@@ -378,6 +388,7 @@ class UserMixin:
         True if new feed exist ,
         After Login or load Settings always return False
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> new_feed_exist")
         results = self.private_request("feed/new_feed_posts_exist/")
         return results.get("new_feed_posts_exist", False)
 
@@ -395,6 +406,7 @@ class UserMixin:
         List[RelationshipShort]
            List of RelationshipShorts with requested user_ids
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_friendships_v1")
         user_ids_str = ",".join(user_ids)
         result = self.private_request(
             "friendships/show_many/",
@@ -423,7 +435,7 @@ class UserMixin:
         Relationship
             An object of Relationship type
         """
-
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_friendship_v1")
         try:
             params = {
                 "is_external_deeplink_profile_view": "false",
@@ -450,6 +462,7 @@ class UserMixin:
         List[UserShort]
             List of users
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> search_users_v1")
         results = self.private_request(
             "users/search/", params={"query": query, "count": count}
         )
@@ -470,6 +483,7 @@ class UserMixin:
         List[UserShort]
             List of User short object
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> search_users")
         return self.search_users_v1(query, count)
 
     def search_followers_v1(self, user_id: str, query: str) -> List[UserShort]:
@@ -488,6 +502,7 @@ class UserMixin:
         List[UserShort]
             List of users
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> search_followers_v1")
         results = self.private_request(
             f"friendships/{user_id}/followers/",
             params={
@@ -515,6 +530,7 @@ class UserMixin:
         List[UserShort]
             List of User short object
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> search_followers")
         return self.search_followers_v1(user_id, query)
 
     def search_following_v1(self, user_id: str, query: str) -> List[UserShort]:
@@ -533,6 +549,7 @@ class UserMixin:
         List[UserShort]
             List of users
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> search_following_v1")
         results = self.private_request(
             f"friendships/{user_id}/following/",
             params={
@@ -561,6 +578,7 @@ class UserMixin:
         List[UserShort]
             List of User short object
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> search_following")
         return self.search_following_v1(user_id, query)
 
     def user_following_gql(self, user_id: str, amount: int = 0) -> List[UserShort]:
@@ -579,6 +597,7 @@ class UserMixin:
         List[UserShort]
             List of objects of User type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_following_gql")
         user_id = str(user_id)
         end_cursor = None
         users = []
@@ -631,6 +650,7 @@ class UserMixin:
         Tuple[List[UserShort], str]
             Tuple of List of users and max_id
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_following_v1_chunk")
         unique_set = set()
         users = []
         while True:
@@ -672,6 +692,7 @@ class UserMixin:
         List[UserShort]
             List of objects of User type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_following_v1")
         users, _ = self.user_following_v1_chunk(str(user_id), amount)
         if amount:
             users = users[:amount]
@@ -697,6 +718,7 @@ class UserMixin:
         Dict[str, UserShort]
             Dict of user_id and User object
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_following")
         user_id = str(user_id)
         users = self._users_following.get(user_id, {})
         if not use_cache or not users or (amount and len(users) < amount):
@@ -735,6 +757,7 @@ class UserMixin:
         Tuple[List[UserShort], str]
             List of objects of User type with cursor
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_followers_gql_chunk")
         user_id = str(user_id)
         users = []
         variables = {
@@ -781,6 +804,7 @@ class UserMixin:
         List[UserShort]
             List of objects of User type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_followers_gql")
         users, _ = self.user_followers_gql_chunk(str(user_id), amount)
         if amount:
             users = users[:amount]
@@ -806,6 +830,7 @@ class UserMixin:
         Tuple[List[UserShort], str]
             Tuple of List of users and max_id
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_followers_v1_chunk")
         unique_set = set()
         users = []
         while True:
@@ -847,6 +872,7 @@ class UserMixin:
         List[UserShort]
             List of objects of User type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_followers_v1")
         users, _ = self.user_followers_v1_chunk(str(user_id), amount)
         if amount:
             users = users[:amount]
@@ -872,6 +898,7 @@ class UserMixin:
         Dict[str, UserShort]
             Dict of user_id and User object
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_followers")
         user_id = str(user_id)
         users = self._users_followers.get(user_id, {})
         if not use_cache or not users or (amount and len(users) < amount):
@@ -900,6 +927,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_follow")
         assert self.user_id, "Login required"
         user_id = str(user_id)
         if user_id in self._users_following.get(self.user_id, []):
@@ -924,6 +952,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_unfollow")
         assert self.user_id, "Login required"
         user_id = str(user_id)
         data = self.with_action_data({"user_id": user_id})
@@ -948,6 +977,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_block")
         data = {
             "surface": surface,
             "is_auto_block_enabled": "false",
@@ -979,6 +1009,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_unblock")
         data = {
             "container_module": surface,
             "user_id": user_id,
@@ -1006,6 +1037,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_remove_follower")
         assert self.user_id, "Login required"
         user_id = str(user_id)
         data = self.with_action_data({"user_id": str(user_id)})
@@ -1030,6 +1062,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> mute_posts_from_follow")
         user_id = str(user_id)
         name = "unmute" if revert else "mute"
         result = self.private_request(
@@ -1056,6 +1089,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> unmute_posts_from_follow")
         return self.mute_posts_from_follow(user_id, True)
 
     def mute_stories_from_follow(self, user_id: str, revert: bool = False) -> bool:
@@ -1074,6 +1108,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> mute_stories_from_follow")
         user_id = str(user_id)
         name = "unmute" if revert else "mute"
         result = self.private_request(
@@ -1100,6 +1135,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> unmute_stories_from_follow")
         return self.mute_stories_from_follow(user_id, True)
 
     def enable_posts_notifications(self, user_id: str, disable: bool = False) -> bool:
@@ -1118,6 +1154,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> enable_posts_notifications")
         assert self.user_id, "Login required"
         user_id = str(user_id)
         data = self.with_action_data({"user_id": user_id, "_uid": self.user_id})
@@ -1138,6 +1175,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> disable_posts_notifications")
         return self.enable_posts_notifications(user_id, True)
 
     def enable_videos_notifications(self, user_id: str, revert: bool = False) -> bool:
@@ -1156,6 +1194,7 @@ class UserMixin:
         bool
         A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> enable_videos_notifications")
         assert self.user_id, "Login required"
         user_id = str(user_id)
         data = self.with_action_data({"user_id": user_id, "_uid": self.user_id})
@@ -1176,6 +1215,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> disable_videos_notifications")
         return self.enable_videos_notifications(user_id, True)
 
     def enable_reels_notifications(self, user_id: str, revert: bool = False) -> bool:
@@ -1194,6 +1234,7 @@ class UserMixin:
         bool
         A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> enable_reels_notifications")
         assert self.user_id, "Login required"
         user_id = str(user_id)
         data = self.with_action_data({"user_id": user_id, "_uid": self.user_id})
@@ -1214,6 +1255,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> disable_reels_notifications")
         return self.enable_reels_notifications(user_id, True)
 
     def enable_stories_notifications(self, user_id: str, revert: bool = False) -> bool:
@@ -1232,6 +1274,7 @@ class UserMixin:
         bool
         A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> enable_stories_notifications")
         assert self.user_id, "Login required"
         user_id = str(user_id)
         data = self.with_action_data({"user_id": user_id, "_uid": self.user_id})
@@ -1254,6 +1297,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> disable_stories_notifications")
         return self.enable_stories_notifications(user_id, True)
 
     def close_friend_add(self, user_id: str):
@@ -1269,6 +1313,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> close_friend_add")
         assert self.user_id, "Login required"
         user_id = str(user_id)
         data = {
@@ -1296,6 +1341,7 @@ class UserMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> close_friend_remove")
         assert self.user_id, "Login required"
         user_id = str(user_id)
         data = {
@@ -1329,6 +1375,7 @@ class UserMixin:
         Tuple[UserShort, Dict]
             Retrieved User and his Creator's Info
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> creator_info")
         assert self.user_id, "Login required"
         params = {
             "entry_point": entry_point,

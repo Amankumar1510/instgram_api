@@ -28,6 +28,7 @@ class ChallengeChoice(Enum):
 
 
 def extract_messages(challenge):
+    print(f"[TRACE] ENTERING: instagrapi/mixins/challenge.py -> extract_messages")
     messages = []
     for item in challenge["extraData"].get("content"):
         message = item.get("title", item.get("text"))
@@ -51,6 +52,7 @@ class ChallengeResolveMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/challenge.py -> challenge_resolve")
         # START GET REQUEST to challenge_url
         challenge_url = last_json["challenge"]["api_path"]
         try:
@@ -108,6 +110,7 @@ class ChallengeResolveMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/challenge.py -> challenge_resolve_contact_form")
         result = self.last_json
         challenge_url = "https://i.instagram.com%s" % challenge_url
         enc_password = "#PWD_INSTAGRAM_BROWSER:0:%s:" % str(int(time.time()))
@@ -239,6 +242,7 @@ class ChallengeResolveMixin:
         return True
 
     def challenge_resolve_new_password_form(self, result):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/challenge.py -> challenge_resolve_new_password_form")
         msg = " ".join(
             [
                 "Log into your Instagram account from smartphone and change password!",
@@ -261,6 +265,7 @@ class ChallengeResolveMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/challenge.py -> handle_challenge_result")
         messages = []
         if "challenge" in challenge:
             """
@@ -367,6 +372,7 @@ class ChallengeResolveMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/challenge.py -> challenge_resolve_simple")
         step_name = self.last_json.get("step_name", "")
         if step_name == "delta_login_review" or step_name == "scraping_warning":
             # IT WAS ME (by GEO)

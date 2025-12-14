@@ -25,6 +25,7 @@ class CaptchaHandlerMixin:
             the solved captcha token as a string.
             If None, clears the existing handler.
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/captcha.py -> set_captcha_handler")
         self._captcha_handler_instance = handler
 
     def captcha_resolve(self, **challenge_details: Dict) -> str:
@@ -50,6 +51,7 @@ class CaptchaHandlerMixin:
         ClientError
             For unexpected errors during the process.
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/captcha.py -> captcha_resolve")
         if not hasattr(self, "_captcha_handler_instance"):
             # This can happen if __init__ of this mixin was not called,
             # e.g. due to incorrect super() chain.

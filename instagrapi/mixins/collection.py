@@ -19,6 +19,7 @@ class CollectionMixin:
         List[Collection]
             A list of objects of Collection
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> collections")
         next_max_id = ""
         total_items = []
         while True:
@@ -54,6 +55,7 @@ class CollectionMixin:
         List[Collection]
             A list of objects of Collection
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> collection_pk_by_name")
         for item in self.collections():
             if item.name == name:
                 return item.id
@@ -73,7 +75,7 @@ class CollectionMixin:
         List[Collection]
             A list of collections
         """
-
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> collection_medias_by_name")
         return self.collection_medias(self.collection_pk_by_name(name))
 
     def liked_medias(self, amount: int = 21, last_media_pk: int = 0) -> List[Media]:
@@ -91,6 +93,7 @@ class CollectionMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> liked_medias")
         return self.collection_medias("liked", amount, last_media_pk)
 
     def collection_medias_v1_chunk(
@@ -111,6 +114,7 @@ class CollectionMixin:
         Tuple[List[Media], str]
             A list of objects of Media and cursor
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> collection_medias_v1_chunk")
         if isinstance(collection_pk, int) or collection_pk.isdigit():
             private_request_endpoint = f"feed/collection/{collection_pk}/"
         elif collection_pk.lower() == "liked":
@@ -145,6 +149,7 @@ class CollectionMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> collection_medias_v1")
         last_media_pk = last_media_pk and int(last_media_pk)
         total_items = []
         next_max_id = ""
@@ -185,6 +190,7 @@ class CollectionMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> collection_medias")
         return self.collection_medias_v1(
             collection_pk, amount=amount, last_media_pk=last_media_pk
         )
@@ -209,6 +215,7 @@ class CollectionMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> media_save")
         assert self.user_id, "Login required"
         media_id = self.media_pk(media_id)
         data = {
@@ -239,4 +246,5 @@ class CollectionMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> media_unsave")
         return self.media_save(media_id, collection_pk, revert=True)

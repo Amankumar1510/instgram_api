@@ -18,6 +18,7 @@ class BloksMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/bloks.py -> bloks_action")
         result = self.private_request(
             f"bloks/apps/{action}/", self.with_default_data(data)
         )
@@ -36,6 +37,7 @@ class BloksMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/bloks.py -> change_password")
         assert (
             self.bloks_versioning_id
         ), "Client.bloks_versioning_id is empty (hash is expected)"

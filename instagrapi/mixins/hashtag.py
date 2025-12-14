@@ -40,6 +40,7 @@ class HashtagMixin:
         Hashtag
             An object of Hashtag
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> hashtag_info_a1")
         params = {"max_id": max_id} if max_id else None
         try:
             data = self.public_a1_request(f"/explore/tags/{name}/", params=params)
@@ -72,6 +73,7 @@ class HashtagMixin:
         Hashtag
             An object of Hashtag
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> hashtag_info_gql")
         variables = {"tag_name": name, "show_ranked": False, "first": int(amount)}
         if end_cursor:
             variables["after"] = end_cursor
@@ -96,6 +98,7 @@ class HashtagMixin:
         Hashtag
             An object of Hashtag
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> hashtag_info_v1")
         result = self.private_request(f"tags/{name}/info/")
         return extract_hashtag_v1(result)
 
@@ -113,6 +116,7 @@ class HashtagMixin:
         Hashtag
             An object of Hashtag
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> hashtag_info")
         try:
             hashtag = self.hashtag_info_a1(name)
         except Exception:
@@ -137,6 +141,7 @@ class HashtagMixin:
         List[Hashtag]
             List of objects of Hashtag
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/collection.py -> hashtag_related_hashtags")
         data = self.public_a1_request(f"/explore/tags/{name}/")
         if not data.get("hashtag"):
             raise HashtagNotFound(name=name, **data)
@@ -167,6 +172,7 @@ class HashtagMixin:
         Tuple[List[Media], str]
             List of objects of Media and end_cursor
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_medias_a1_chunk")
         assert tab_key in (
             "recent",
             "top",
@@ -224,6 +230,7 @@ class HashtagMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_medias_a1")
         medias, _ = self.hashtag_medias_a1_chunk(name, amount, tab_key)
         if amount:
             medias = medias[:amount]
@@ -251,6 +258,7 @@ class HashtagMixin:
         Tuple[List[Media], str]
             List of objects of Media and max_id
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_medias_v1_chunk")
         assert tab_key in (
             "top",
             "recent",
@@ -322,6 +330,7 @@ class HashtagMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_medias_v1")
         medias = []
         max_id = None
         while True:
@@ -351,6 +360,7 @@ class HashtagMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_medias_top_a1")
         return self.hashtag_medias_a1(name, amount, tab_key="top")
 
     def hashtag_medias_top_v1(self, name: str, amount: int = 9) -> List[Media]:
@@ -369,6 +379,7 @@ class HashtagMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_medias_top_v1")
         return self.hashtag_medias_v1(name, amount, tab_key="top")
 
     def hashtag_medias_top(self, name: str, amount: int = 9) -> List[Media]:
@@ -387,6 +398,7 @@ class HashtagMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_medias_top")
         try:
             medias = self.hashtag_medias_top_a1(name, amount)
         except ClientError:
@@ -409,6 +421,7 @@ class HashtagMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_medias_recent_a1")
         return self.hashtag_medias_a1(name, amount, tab_key="recent")
 
     def hashtag_medias_recent_v1(self, name: str, amount: int = 27) -> List[Media]:
@@ -427,6 +440,7 @@ class HashtagMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_medias_recent_v1")
         return self.hashtag_medias_v1(name, amount, tab_key="recent")
 
     def hashtag_medias_recent(self, name: str, amount: int = 27) -> List[Media]:
@@ -445,6 +459,7 @@ class HashtagMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_medias_recent")
         try:
             medias = self.hashtag_medias_recent_a1(name, amount)
         except ClientError:
@@ -467,6 +482,7 @@ class HashtagMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_medias_reels_v1")
         return self.hashtag_medias_v1(name, amount, tab_key="clips")
 
     def hashtag_follow(self, hashtag: str, unfollow: bool = False) -> bool:
@@ -483,6 +499,7 @@ class HashtagMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_follow")
         assert self.user_id, "Login required"
         name = "unfollow" if unfollow else "follow"
         data = self.with_action_data({"user_id": self.user_id})
@@ -503,4 +520,5 @@ class HashtagMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/hashtag.py -> hashtag_unfollow")
         return self.hashtag_follow(hashtag, unfollow=True)

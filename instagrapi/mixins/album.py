@@ -71,6 +71,7 @@ class DownloadAlbumMixin:
         List[Path]
             List of path for all the files downloaded
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/album.py -> album_download_by_urls")
         paths = []
         for url in urls:
             file_name = urlparse(url).path.rsplit("/", 1)[1]
@@ -95,6 +96,7 @@ class DownloadAlbumMixin:
         List[Path]
             List of path for all the files downloaded
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/album.py -> album_download_origin")
         media = self.media_info(media_pk)
         assert media.media_type == 8, "Must been album"
         files = []
@@ -152,6 +154,7 @@ class UploadAlbumMixin:
         Media
             An object of Media class
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/album.py -> album_upload")
         children = []
         for path in paths:
             path = Path(path)
@@ -251,6 +254,7 @@ class UploadAlbumMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/album.py -> album_configure")
         upload_id = str(int(time.time() * 1000))
         if usertags:
             usertags = [

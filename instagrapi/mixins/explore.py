@@ -11,6 +11,7 @@ class ExploreMixin:
         -------
         dict
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/explore.py -> explore_page")
         return self.private_request("discover/topical_explore/")
 
     def report_explore_media(self, media_pk: int):
@@ -26,6 +27,7 @@ class ExploreMixin:
         bool
             True if success
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/explore.py -> report_explore_media")
         params = {
             "m_pk": media_pk,
         }
@@ -40,6 +42,7 @@ class ExploreMixin:
         and you click into a media item. It returns information about that media item
         like comments, likes, etc.
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/explore.py -> explore_page_media_info")
         return self.private_request(
             "/v1/discover/media_metadata/", params={"media_id": media_pk}
         )["media_or_ad"]

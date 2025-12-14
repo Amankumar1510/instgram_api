@@ -80,7 +80,7 @@ class DirectMixin:
         List[DirectThread]
             A list of objects of DirectThread
         """
-
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_threads")
         cursor = None
         threads = []
         # self.private_request("direct_v2/get_presence/")
@@ -123,6 +123,7 @@ class DirectMixin:
         Tuple[List[DirectThread], str]
             A tuple of list of objects of DirectThread and str (cursor)
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_threads_chunk")
         assert self.user_id, "Login required"
         params = {
             "visual_message_return_type": "unseen",
@@ -168,7 +169,7 @@ class DirectMixin:
         List[DirectThread]
             A list of objects of DirectThread
         """
-
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_pending_inbox")
         cursor = None
         threads = []
         while True:
@@ -198,6 +199,7 @@ class DirectMixin:
         Tuple[List[DirectThread], str]
             A tuple of list of objects of DirectThread and str (cursor)
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_pending_chunk")
         assert self.user_id, "Login required"
         params = {
             "visual_message_return_type": "unseen",
@@ -230,6 +232,7 @@ class DirectMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_pending_approve")
         assert self.user_id, "Login required"
 
         result = self.private_request(
@@ -253,6 +256,7 @@ class DirectMixin:
         List[DirectThread]
             A list of objects of DirectThread
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_spam_inbox")
         cursor = None
         threads = []
         while True:
@@ -280,6 +284,7 @@ class DirectMixin:
         Tuple[List[DirectThread], str]
             A tuple of list of objects of DirectThread and str (cursor)
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_spam_chunk")
         assert self.user_id, "Login required"
         params = {
             "visual_message_return_type": "unseen",
@@ -314,6 +319,7 @@ class DirectMixin:
         DirectThread
             An object of DirectThread
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_thread")
         assert self.user_id, "Login required"
         params = {
             "visual_message_return_type": "unseen",
@@ -360,6 +366,7 @@ class DirectMixin:
         List[DirectMessage]
             A list of objects of DirectMessage
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_messages")
         assert self.user_id, "Login required"
         return self.direct_thread(thread_id, amount).messages
 
@@ -380,6 +387,7 @@ class DirectMixin:
         DirectMessage
             An object of DirectMessage
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_answer")
         assert self.user_id, "Login required"
         return self.direct_send(text, [], [int(thread_id)])
 
@@ -413,6 +421,7 @@ class DirectMixin:
         DirectMessage
             An object of DirectMessage
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_send")
         assert self.user_id, "Login required"
         assert (user_ids or thread_ids) and not (
             user_ids and thread_ids
@@ -482,6 +491,7 @@ class DirectMixin:
         DirectMessage
             An object of DirectMessage
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_send_photo")
         return self.direct_send_file(path, user_ids, thread_ids, content_type="photo")
 
     def direct_send_video(
@@ -504,6 +514,7 @@ class DirectMixin:
         DirectMessage
             An object of DirectMessage
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_send_video")
         return self.direct_send_file(path, user_ids, thread_ids, content_type="video")
 
     def direct_send_file(
@@ -530,6 +541,7 @@ class DirectMixin:
         DirectMessage
             An object of DirectMessage
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_send_file")
         assert self.user_id, "Login required"
         assert (user_ids or thread_ids) and not (
             user_ids and thread_ids
@@ -598,6 +610,7 @@ class DirectMixin:
         Dict
             Dict with User's presences
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_users_presence")
         assert self.user_id, "Login Required"
         data = {
             "_uuid": self.uuid,
@@ -623,6 +636,7 @@ class DirectMixin:
         Dict
             Dict with active presences
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_active_presence")
         params = {"recent_thread_limit": 0, "suggested_followers_limit": 100}
         result = self.private_request(
             "direct_v2/get_presence_active_now/", params=params
@@ -647,6 +661,7 @@ class DirectMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_message_seen")
         token = self.generate_mutation_token()
         data = {
             "thread_id": str(thread_id),
@@ -676,6 +691,7 @@ class DirectMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_send_seen")
         thread = self.direct_thread(thread_id=thread_id)
         return self.direct_message_seen(thread_id, thread.messages[0].id)
 
@@ -697,6 +713,7 @@ class DirectMixin:
         List[UserShort]
             List of short version of Users
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_search")
         assert mode in SEARCH_MODES, f'Unsupported mode="{mode}" {SEARCH_MODES}'
 
         params = {
@@ -735,6 +752,7 @@ class DirectMixin:
         List[Tuple[DirectMessage, DirectThread]]
             List of Tuples with DirectMessage (matched query) and its DirectThread
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_message_search")
         params = {
             "offsets": '{"message_content":"0","reshared_content":""}',
             "query": query,
@@ -774,6 +792,7 @@ class DirectMixin:
             Some information about thread.
             List of UserShort under "users" key
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_thread_by_participants")
         recipient_users = dumps([int(uid) for uid in user_ids])
         result = self.private_request(
             "direct_v2/threads/get_by_participants/",
@@ -812,6 +831,7 @@ class DirectMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_thread_hide")
         assert self.user_id, "Login required"
 
         result = self.private_request(
@@ -850,6 +870,7 @@ class DirectMixin:
         DirectMessage
             An object of DirectMessage
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_media_share")
         assert self.user_id, "Login required"
         token = self.generate_mutation_token()
         media_id = self.media_id(media_id)
@@ -907,6 +928,7 @@ class DirectMixin:
         DirectMessage
             An object of DirectMessage
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_story_share")
         assert self.user_id, "Login required"
         assert (user_ids or thread_ids) and not (
             user_ids and thread_ids
@@ -955,6 +977,7 @@ class DirectMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_thread_mark_unread")
         data = self.with_default_data({})
         data.pop("_uid", None)
         data.pop("device_id", None)
@@ -979,6 +1002,7 @@ class DirectMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_message_delete")
         data = self.with_default_data({})
         data.pop("_uid", None)
         data.pop("device_id", None)
@@ -1003,6 +1027,7 @@ class DirectMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_thread_mute")
         name = "unmute" if revert else "mute"
         result = self.private_request(
             f"direct_v2/threads/{thread_id}/{name}/", data={"_uuid": self.uuid}
@@ -1023,6 +1048,7 @@ class DirectMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_thread_unmute")
         return self.direct_thread_mute(thread_id, revert=True)
 
     def direct_thread_mute_video_call(
@@ -1043,6 +1069,7 @@ class DirectMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_thread_mute_video_call")
         name = "unmute_video_call" if revert else "mute_video_call"
         result = self.private_request(
             f"direct_v2/threads/{thread_id}/{name}/", data={"_uuid": self.uuid}
@@ -1063,6 +1090,7 @@ class DirectMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_thread_unmute_video_call")
         return self.direct_thread_mute_video_call(thread_id, revert=True)
 
     def direct_profile_share(
@@ -1085,6 +1113,7 @@ class DirectMixin:
         DirectMessage
             An object of DirectMessage
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_profile_share")
         assert self.user_id, "Login required"
         assert (user_ids or thread_ids) and not (
             user_ids and thread_ids
@@ -1137,6 +1166,7 @@ class DirectMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/direct.py -> direct_media")
         assert self.user_id, "Login required"
         params = {"limit": 20, "media_type": "photos_and_videos"}
         max_timestamp = None

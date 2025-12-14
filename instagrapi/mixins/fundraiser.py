@@ -16,5 +16,6 @@ class FundraiserMixin:
         -------
         dict
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/fundraiser.py -> standalone_fundraiser_info_v1")
         user_id = str(user_id)
         return self.private_request(f"fundraiser/{user_id}/standalone_fundraiser_info/")

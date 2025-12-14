@@ -1,0 +1,116 @@
+{
+    "data": {
+        "user": {
+            "ai_agent_owner_username": null,
+            "ai_agent_type": null,
+            "biography": "",
+            "bio_links": [],
+            "fb_profile_biolink": null,
+            "biography_with_entities": {
+                "raw_text": "",
+                "entities": []
+            },
+            "blocked_by_viewer": false,
+            "restricted_by_viewer": null,
+            "country_block": false,
+            "eimu_id": "116330086424505",
+            "external_url": null,
+            "external_url_linkshimmed": null,
+            "edge_followed_by": {
+                "count": 0
+            },
+            "fbid": "17841414649019209",
+            "followed_by_viewer": false,
+            "edge_follow": {
+                "count": 0
+            },
+            "follows_viewer": false,
+            "full_name": "Naman vrma",
+            "group_metadata": null,
+            "has_ar_effects": false,
+            "has_clips": false,
+            "has_guides": false,
+            "has_channel": false,
+            "has_blocked_viewer": false,
+            "highlight_reel_count": 0,
+            "has_onboarded_to_text_post_app": false,
+            "has_requested_viewer": false,
+            "hide_like_and_view_counts": false,
+            "id": "14793672300",
+            "is_business_account": false,
+            "is_professional_account": false,
+            "is_supervision_enabled": false,
+            "is_guardian_of_viewer": false,
+            "is_supervised_by_viewer": false,
+            "is_supervised_user": false,
+            "is_embeds_disabled": true,
+            "is_joined_recently": false,
+            "guardian_id": null,
+            "business_address_json": null,
+            "business_contact_method": "UNKNOWN",
+            "business_email": null,
+            "business_phone_number": null,
+            "business_category_name": null,
+            "overall_category_name": null,
+            "category_enum": null,
+            "category_name": null,
+            "is_private": true,
+            "is_verified": false,
+            "is_verified_by_mv4b": false,
+            "is_regulated_c18": false,
+            "edge_mutual_followed_by": {
+                "count": 0,
+                "edges": []
+            },
+            "pinned_channels_list_count": 0,
+            "profile_pic_url": "https://instagram.fndc2-1.fna.fbcdn.net/v/t51.2885-19/464760996_1254146839119862_3605321457742435801_n.png?stp=dst-jpg_e0_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xNTAuYzIifQ&_nc_ht=instagram.fndc2-1.fna.fbcdn.net&_nc_cat=1&_nc_oc=Q6cZ2QGoauxfyCzDINZoe2JHKirlzSQ7_sWjNBVr3fkE023vzsan5fncMf89kF-jR_Ph5_0YZe0-EAibeP9cb06b7Ny7&_nc_ohc=vOZW5MXUd6wQ7kNvwHRZLsK&_nc_gid=8_qZNOZ2G3BetzeildwLlA&edm=AL4D0a4BAAAA&ccb=7-5&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.3-ccb7-5&oh=00_AfexASK_2Q2uD-zLp6L-sMphdf-TGQU9uNft76T1s3vAGw&oe=68F1B268&_nc_sid=9e8221",
+            "profile_pic_url_hd": "https://instagram.fndc2-1.fna.fbcdn.net/v/t51.2885-19/464760996_1254146839119862_3605321457742435801_n.png?stp=dst-jpg_e0_s150x150_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby4xNTAuYzIifQ&_nc_ht=instagram.fndc2-1.fna.fbcdn.net&_nc_cat=1&_nc_oc=Q6cZ2QGoauxfyCzDINZoe2JHKirlzSQ7_sWjNBVr3fkE023vzsan5fncMf89kF-jR_Ph5_0YZe0-EAibeP9cb06b7Ny7&_nc_ohc=vOZW5MXUd6wQ7kNvwHRZLsK&_nc_gid=8_qZNOZ2G3BetzeildwLlA&edm=AL4D0a4BAAAA&ccb=7-5&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.3-ccb7-5&oh=00_AfexASK_2Q2uD-zLp6L-sMphdf-TGQU9uNft76T1s3vAGw&oe=68F1B268&_nc_sid=9e8221",
+            "requested_by_viewer": false,
+            "should_show_category": false,
+            "should_show_public_contacts": false,
+            "show_account_transparency_details": true,
+            "show_text_post_app_badge": null,
+            "remove_message_entrypoint": false,
+            "transparency_label": null,
+            "transparency_product": null,
+            "username": "namanvrma_",
+            "pronouns": [],
+            "edge_felix_video_timeline": {
+                "count": 0,
+                "page_info": {
+                    "has_next_page": false,
+                    "end_cursor": null
+                },
+                "edges": []
+            },
+            "edge_owner_to_timeline_media": {
+                "count": 0,
+                "page_info": {
+                    "has_next_page": false,
+                    "end_cursor": null
+                },
+                "edges": []
+            },
+            "edge_saved_media": {
+                "count": 0,
+                "page_info": {
+                    "has_next_page": false,
+                    "end_cursor": null
+                },
+                "edges": []
+            },
+            "edge_media_collections": {
+                "count": 0,
+                "page_info": {
+                    "has_next_page": false,
+                    "end_cursor": null
+                },
+                "edges": []
+            },
+            "edge_related_profiles": {
+                "edges": []
+            }
+        }
+    },
+    "status": "ok"
+}

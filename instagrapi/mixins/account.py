@@ -60,6 +60,7 @@ class AccountMixin:
         Account
             An object of Account class
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> account_info")
         result = self.private_request("accounts/current_user/?edit=true")
         return extract_account(result["user"])
 
@@ -83,6 +84,7 @@ class AccountMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> change_password")
         try:
             enc_old_password = self.password_encrypt(old_password)
             enc_new_password = self.password_encrypt(new_password)
@@ -105,6 +107,7 @@ class AccountMixin:
             return False
 
     def remove_bio_links(self, link_ids: list[int]) -> dict:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> remove_bio_links")
         signed_body = {
             "signed_body": "SIGNATURE." + json.dumps(
                 {
@@ -120,6 +123,7 @@ class AccountMixin:
         """
         Set new biography
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> set_external_url")
         data = dumps(
             {
                 "updated_links": dumps(
@@ -144,6 +148,7 @@ class AccountMixin:
         Account
             An object of Account class
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> account_set_private")
         assert self.user_id, "Login required"
         user_id = str(self.user_id)
         data = self.with_action_data({"_uid": user_id, "_uuid": self.uuid})
@@ -159,6 +164,7 @@ class AccountMixin:
         Account
             An object of Account class
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> account_set_public")
         assert self.user_id, "Login required"
         user_id = str(self.user_id)
         data = self.with_action_data({"_uid": user_id, "_uuid": self.uuid})
@@ -188,6 +194,7 @@ class AccountMixin:
             "can_add_additional_totp_seed": false
             }
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> account_security_info")
         return self.private_request(
             "accounts/account_security_info/", self.with_default_data({})
         )
@@ -206,6 +213,7 @@ class AccountMixin:
         Account
             An object of Account class
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> account_edit")
         fields = (
             "external_url",
             "username",
@@ -253,6 +261,7 @@ class AccountMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> account_set_biography")
         data = {"logged_in_uids": dumps([str(self.user_id)]), "raw_text": biography}
         result = self.private_request(
             "accounts/set_biography/", self.with_default_data(data)
@@ -273,6 +282,7 @@ class AccountMixin:
         UserShort
             An object of UserShort class
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> account_change_picture")
         upload_id, _, _ = self.photo_rupload(Path(path))
         result = self.private_request(
             "accounts/change_profile_picture/",
@@ -293,6 +303,7 @@ class AccountMixin:
         -------
         dict
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> news_inbox_v1")
         return self.private_request(
             "news/inbox/", params={"mark_as_seen": mark_as_seen}
         )
@@ -310,6 +321,7 @@ class AccountMixin:
         -------
         dict
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> send_confirm_email")
         return self.private_request(
             "accounts/send_confirm_email/",
             self.with_extra_data(
@@ -330,6 +342,7 @@ class AccountMixin:
         -------
         dict
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> send_confirm_phone_number")
         return self.private_request(
             "accounts/initiate_phone_number_confirmation/",
             self.with_extra_data(

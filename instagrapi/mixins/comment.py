@@ -27,7 +27,7 @@ class CommentMixin:
         List[Comment]
             A list of objects of Comment
         """
-
+        print(f"[TRACE] ENTERING: instagrapi/mixins/comment.py -> media_comments")
         # TODO: to public or private
         def get_comments():
             if result.get("comments"):
@@ -87,7 +87,7 @@ class CommentMixin:
         Tuple[List[Comment], str]
             A list of objects of Comment and an end_cursor
         """
-
+        print(f"[TRACE] ENTERING: instagrapi/mixins/comment.py -> media_comments_chunk")
         # TODO: to public or private
         def get_comments():
             if result.get("comments"):
@@ -134,6 +134,7 @@ class CommentMixin:
         Comment
             An object of Comment type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/comment.py -> media_comment")
         assert self.user_id, "Login required"
         media_id = self.media_id(media_id)
         data = {
@@ -168,6 +169,7 @@ class CommentMixin:
         bool
             If comment is offensive
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/comment.py -> media_check_offensive_comment")
         assert self.user_id, "Login required"
         media_id = self.media_id(media_id)
         data = {
@@ -197,6 +199,7 @@ class CommentMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/comment.py -> comment_like")
         assert self.user_id, "Login required"
         comment_pk = int(comment_pk)
         data = {
@@ -224,6 +227,7 @@ class CommentMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/comment.py -> comment_unlike")
         return self.comment_like(comment_pk, revert=True)
 
     def comment_pin(self, media_id: str, comment_pk: int, revert: bool = False):
@@ -243,6 +247,7 @@ class CommentMixin:
         bool
            A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/comment.py -> comment_pin")
         data = self.with_action_data({"_uid": self.user_id, "_uuid": self.uuid})
         name = "unpin" if revert else "pin"
 
@@ -267,6 +272,7 @@ class CommentMixin:
         bool
            A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/comment.py -> comment_unpin")
         return self.comment_pin(media_id, comment_pk, True)
 
     def comment_bulk_delete(self, media_id: str, comment_pks: List[int]) -> bool:
@@ -285,6 +291,7 @@ class CommentMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/comment.py -> comment_bulk_delete")
         media_id = self.media_id(media_id)
         data = {
             "comment_ids_to_delete": ",".join([str(pk) for pk in comment_pks]),
