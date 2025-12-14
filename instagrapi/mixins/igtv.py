@@ -39,6 +39,7 @@ class DownloadIGTVMixin:
         -------
         str
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/igtv.py -> igtv_download")
         return self.video_download(media_pk, folder)
 
     def igtv_download_by_url(
@@ -59,6 +60,7 @@ class DownloadIGTVMixin:
         -------
         str
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/igtv.py -> igtv_download_by_url")
         return self.video_download_by_url(url, filename, folder)
 
 

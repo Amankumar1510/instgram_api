@@ -31,6 +31,7 @@ class HighlightMixin:
         --------
         https://www.instagram.com/stories/highlights/17895485201104054/ -> 17895485201104054
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/account.py -> highlight_pk_from_url")
         vassert("/highlights/" in url, "URL must contain '/highlights/'")
         path = urlparse(url).path
         parts = [p for p in path.split("/") if p and p.isdigit()]
@@ -51,6 +52,7 @@ class HighlightMixin:
         List[Highlight]
             A list of objects of Highlight
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/highlight.py -> user_highlights_v1")
         amount = int(amount)
         user_id = int(user_id)
         params = {
@@ -82,6 +84,7 @@ class HighlightMixin:
         List[Highlight]
             A list of objects of Highlight
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/highlight.py -> user_highlights")
         return self.user_highlights_v1(user_id, amount)
 
     def highlight_info_v1(self, highlight_pk: str) -> Highlight:
@@ -98,6 +101,7 @@ class HighlightMixin:
         Highlight
             An object of Highlight type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/highlight.py -> highlight_info_v1")
         highlight_id = f"highlight:{highlight_pk}"
         data = {
             "exclude_media_ids": "[]",
@@ -127,6 +131,7 @@ class HighlightMixin:
         Highlight
             An object of Highlight type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/highlight.py -> highlight_info")
         return self.highlight_info_v1(highlight_pk)
 
     def highlight_create(
@@ -153,6 +158,7 @@ class HighlightMixin:
         Highlight
             An object of Highlight type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/highlight.py -> highlight_create")
         if not cover_story_id:
             cover_story_id = story_ids[0]
         data = {
@@ -181,6 +187,7 @@ class HighlightMixin:
         added_media_ids: List[str] = [],
         removed_media_ids: List[str] = [],
     ):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/highlight.py -> highlight_edit")
         data = {
             "supported_capabilities_new": json.dumps(config.SUPPORTED_CAPABILITIES),
             "source": "self_profile",
@@ -213,6 +220,7 @@ class HighlightMixin:
         -------
         Highlight
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/highlight.py -> highlight_change_title")
         return self.highlight_edit(highlight_pk, title=title)
 
     def highlight_change_cover(self, highlight_pk: str, cover_path: Path) -> Highlight:
@@ -230,6 +238,7 @@ class HighlightMixin:
         -------
         Highlight
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/highlight.py -> highlight_change_cover")
         upload_id, width, height = self.photo_rupload(Path(cover_path))
         cover = {"upload_id": str(upload_id), "crop_rect": "[0.0,0.0,1.0,1.0]"}
         return self.highlight_edit(highlight_pk, cover=cover)
@@ -251,6 +260,7 @@ class HighlightMixin:
         -------
         Highlight
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/highlight.py -> highlight_add_stories")
         return self.highlight_edit(highlight_pk, added_media_ids=added_media_ids)
 
     def highlight_remove_stories(
@@ -270,6 +280,7 @@ class HighlightMixin:
         -------
         Highlight
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/highlight.py -> highlight_remove_stories")
         return self.highlight_edit(highlight_pk, removed_media_ids=removed_media_ids)
 
     def highlight_delete(self, highlight_pk: str) -> bool:
@@ -285,6 +296,7 @@ class HighlightMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/highlight.py -> highlight_delete")
         data = {"_uid": str(self.user_id), "_uuid": self.uuid}
         result = self.private_request(
             f"highlights/highlight:{highlight_pk}/delete_reel/", data=data

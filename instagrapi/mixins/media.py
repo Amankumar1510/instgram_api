@@ -49,6 +49,7 @@ class MediaMixin:
         -------
         2277033926878261772 -> 2277033926878261772_1903424587
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_id")
         media_id = str(media_pk)
         if "_" not in media_id:
             assert media_id.isdigit(), (
@@ -77,6 +78,7 @@ class MediaMixin:
         -------
         2277033926878261772_1903424587 -> 2277033926878261772
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_pk")
         media_pk = str(media_id)
         if "_" in media_pk:
             media_pk, _ = media_id.split("_")
@@ -101,6 +103,7 @@ class MediaMixin:
         2110901750722920960 -> B1LbfVPlwIA
         2278584739065882267 -> B-fKL9qpeab
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_code_from_pk")
         return InstagramIdCodec.encode(media_pk)
 
     def media_pk_from_code(self, code: str) -> str:
@@ -123,6 +126,7 @@ class MediaMixin:
         B-fKL9qpeab -> 2278584739065882267
         CCQQsCXjOaBfS3I2PpqsNkxElV9DXj61vzo5xs0 -> 2346448800803776129
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_pk_from_code")
         return str(InstagramIdCodec.decode(code[:11]))
 
     def media_pk_from_url(self, url: str) -> str:
@@ -144,6 +148,7 @@ class MediaMixin:
         https://instagram.com/p/B1LbfVPlwIA/ -> 2110901750722920960
         https://www.instagram.com/p/B-fKL9qpeab/?igshid=1xm76zkq7o1im -> 2278584739065882267
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_pk_from_url")
         path = urlparse(url).path
         parts = [p for p in path.split("/") if p]
         return self.media_pk_from_code(parts.pop())
@@ -164,6 +169,7 @@ class MediaMixin:
         Media
             An object of Media type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_info_a1")
         media_pk = self.media_pk(media_pk)
         shortcode = self.media_code_from_pk(media_pk)
         """Use Client.media_info
@@ -190,6 +196,7 @@ class MediaMixin:
         Media
             An object of Media type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_info_gql")
         media_pk = self.media_pk(media_pk)
         shortcode = self.media_code_from_pk(media_pk)
         """Use Client.media_info
@@ -226,6 +233,7 @@ class MediaMixin:
         Media
             An object of Media type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_info_v1")
         try:
             result = self.private_request(f"media/{media_pk}/info/")
         except ClientNotFoundError as e:
@@ -252,6 +260,7 @@ class MediaMixin:
         Media
             An object of Media type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_info")
         media_pk = self.media_pk(media_pk)
         if not use_cache or media_pk not in self._medias_cache:
             try:
@@ -286,6 +295,7 @@ class MediaMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_delete")
         assert self.user_id, "Login required"
         media_id = self.media_id(media_id)
         result = self.private_request(
@@ -323,6 +333,7 @@ class MediaMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_edit")
         assert self.user_id, "Login required"
         media_id = self.media_id(media_id)
         media = self.media_info(media_id)  # from cache
@@ -369,6 +380,7 @@ class MediaMixin:
         UserShort
             An object of UserShort
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_user")
         return self.media_info_v1(media_pk).user
 
     def media_oembed(self, url: str) -> Dict:
@@ -385,6 +397,7 @@ class MediaMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_oembed")
         return extract_media_oembed(self.private_request(f"oembed?url={url}"))
 
     def media_like(self, media_id: str, revert: bool = False) -> bool:
@@ -403,6 +416,7 @@ class MediaMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_like")
         assert self.user_id, "Login required"
         media_id = self.media_pk(media_id)
         data = {
@@ -433,6 +447,7 @@ class MediaMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_unlike")
         return self.media_like(media_id, revert=True)
 
     def user_medias_paginated_gql(
@@ -455,6 +470,7 @@ class MediaMixin:
         Tuple[List[Media], str]
             A tuple containing a list of medias and the next end_cursor value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> user_medias_paginated_gql")
         amount = int(amount)
         user_id = int(user_id)
         medias = []
@@ -510,6 +526,7 @@ class MediaMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> user_medias_gql")
         amount = int(amount)
         user_id = int(user_id)
         sleep = int(sleep)
@@ -560,6 +577,7 @@ class MediaMixin:
         Tuple[List[Media], str]
             A tuple containing a list of medias and the next end_cursor value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> user_videos_paginated_gql")
         items = []
         amount = int(amount)
         user_id = int(user_id)
@@ -596,6 +614,7 @@ class MediaMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> user_videos_v1")
         amount = int(amount)
         user_id = int(user_id)
         medias = []
@@ -638,6 +657,7 @@ class MediaMixin:
         Tuple[List[Media], str]
             A tuple containing a list of medias and the next end_cursor value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> user_medias_paginated_v1")
         amount = int(amount)
         user_id = int(user_id)
         medias = []
@@ -680,6 +700,7 @@ class MediaMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> user_medias_v1")
         amount = int(amount)
         user_id = int(user_id)
         medias = []
@@ -722,7 +743,7 @@ class MediaMixin:
         Tuple[List[Media], str]
             A tuple containing a list of medias and the next end_cursor value
         """
-
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> user_medias_paginated")
         class EndCursorIsV1(Exception):
             pass
 
@@ -765,6 +786,7 @@ class MediaMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> user_pinned_medias")
         default_nav = self.base_headers["X-IG-Nav-Chain"]
         self.base_headers[
             "X-IG-Nav-Chain"
@@ -800,6 +822,7 @@ class MediaMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> user_medias")
         amount = int(amount)
         user_id = int(user_id)
         sleep = int(sleep)
@@ -840,6 +863,7 @@ class MediaMixin:
         Tuple[List[Media], str]
             A tuple containing a list of medias and the next end_cursor value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> user_clips_paginated_v1")
         amount = int(amount)
         user_id = int(user_id)
         medias = []
@@ -880,6 +904,7 @@ class MediaMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> user_clips_v1")
         amount = int(amount)
         user_id = int(user_id)
         medias = []
@@ -918,6 +943,7 @@ class MediaMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> user_clips")
         amount = int(amount)
         user_id = int(user_id)
         return self.user_clips_v1(user_id, amount)
@@ -935,7 +961,7 @@ class MediaMixin:
         bool
             A boolean value
         """
-
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_seen")
         def gen(media_ids):
             result = {}
             for media_id in media_ids:
@@ -972,6 +998,7 @@ class MediaMixin:
         List[UserShort]
             List of objects of User type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_likers")
         media_id = self.media_id(media_id)
         result = self.private_request(f"media/{media_id}/likers/")
         return [extract_user_short(u) for u in result["users"]]
@@ -992,6 +1019,7 @@ class MediaMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_archive")
         media_id = self.media_id(media_id)
         name = "undo_only_me" if revert else "only_me"
         result = self.private_request(
@@ -1013,6 +1041,7 @@ class MediaMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_unarchive")
         return self.media_archive(media_id, revert=True)
 
     def usertag_medias_gql(
@@ -1034,6 +1063,7 @@ class MediaMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> usertag_medias_gql")
         amount = int(amount)
         user_id = int(user_id)
         medias = []
@@ -1082,6 +1112,7 @@ class MediaMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> usertag_medias_v1")
         amount = int(amount)
         user_id = int(user_id)
         medias = []
@@ -1121,6 +1152,7 @@ class MediaMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> usertag_medias")
         amount = int(amount)
         user_id = int(user_id)
         try:
@@ -1144,6 +1176,7 @@ class MediaMixin:
         bool
         A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_pin")
         data = self.with_action_data({"post_id": media_pk, "_uuid": self.uuid})
         name = "unpin" if revert else "pin"
 
@@ -1163,6 +1196,7 @@ class MediaMixin:
         bool
         A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_unpin")
         return self.media_pin(media_pk, True)
 
     def media_create_livestream(self, title="Instagram Live"):
@@ -1179,6 +1213,7 @@ class MediaMixin:
         dict
             Information about the streaming server and the stream key.
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_create_livestream")
         data = {
             "_uuid": self.uuid,
             "_uid": self.user_id,
@@ -1219,6 +1254,7 @@ class MediaMixin:
         bool
             True if the broadcast started successfully, False otherwise.
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_start_livestream")
         data = {
             "_uuid": self.uuid,
             "_uid": self.user_id,
@@ -1246,6 +1282,7 @@ class MediaMixin:
         bool
             True if the broadcast ended successfully, False otherwise.
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_end_livestream")
         data = {
             "_uuid": self.uuid,
             "_uid": self.user_id,
@@ -1272,6 +1309,7 @@ class MediaMixin:
         dict
             Information about the live broadcast.
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_get_livestream_info")
         try:
             response = self.private_request(f"live/{broadcast_id}/info/")
             return response
@@ -1293,6 +1331,7 @@ class MediaMixin:
         list
             A list of comments.
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_get_livestream_comments")
         try:
             response = self.private_request(f"live/{broadcast_id}/get_comment/")
             if "comments" in response:
@@ -1316,6 +1355,7 @@ class MediaMixin:
         list
             A list of viewers.
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/media.py -> media_get_livestream_viewers")
         try:
             response = self.private_request(f"live/{broadcast_id}/get_viewer_list/")
             return [{"username": user["username"], "pk": user["pk"]} for user in response.get("users", [])]

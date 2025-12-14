@@ -71,6 +71,7 @@ class InsightsMixin:
         List[Dict]
             List of dictionaries of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/insights.py -> insights_media_feed_all")
         assert (
             post_type in POST_TYPES
         ), f'Unsupported post_type="{post_type}" {POST_TYPES}'
@@ -149,6 +150,7 @@ class InsightsMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/insights.py -> insights_account")
         assert self.user_id, "Login required"
         data = {
             "surface": "account",
@@ -189,6 +191,7 @@ class InsightsMixin:
         Dict
             A dictionary with insights data
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/insights.py -> insights_media")
         assert self.user_id, "Login required"
         media_pk = self.media_pk(media_pk)
         data = {

@@ -35,6 +35,7 @@ class LocationMixin:
         List[Location]
             List of objects of Location
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_search")
         params = {
             "latitude": lat,
             "longitude": lng,
@@ -64,6 +65,7 @@ class LocationMixin:
         Location
             An object of Location
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_complete")
         assert location and isinstance(
             location, Location
         ), f'Location is wrong "{location}" ({type(location)})'
@@ -101,6 +103,7 @@ class LocationMixin:
         -------
         str
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_build")
         if not location:
             return "{}"
         if not location.external_id and location.lat:
@@ -132,6 +135,7 @@ class LocationMixin:
         Location
             An object of Location
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_info_a1")
         try:
             data = self.public_a1_request(f"/explore/locations/{location_pk}/") or {}
             if not data.get("location"):
@@ -154,6 +158,7 @@ class LocationMixin:
         Location
             An object of Location
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_info_v1")
         result = self.private_request(f"locations/{location_pk}/location_info/")
         if not result.get("name"):
             # Sorry, this page isn't available.
@@ -174,6 +179,7 @@ class LocationMixin:
         Location
             An object of Location
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_info")
         return self.location_info_v1(location_pk)
 
     def location_medias_a1_chunk(
@@ -205,6 +211,7 @@ class LocationMixin:
         Tuple[List[Media], str]
             List of objects of Media and end_cursor
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_medias_a1_chunk")
         assert (
             tab_key in tab_keys_a1
         ), f'You must specify one of the options for "tab_key" {tab_keys_a1}'
@@ -252,6 +259,7 @@ class LocationMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_medias_a1")
         assert (
             tab_key in tab_keys_a1
         ), f'You must specify one of the options for "tab_key" {tab_keys_a1}'
@@ -286,6 +294,7 @@ class LocationMixin:
         Tuple[List[Media], str]
             List of objects of Media and max_id
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_medias_v1_chunk")
         assert (
             tab_key in tab_keys_v1
         ), f'You must specify one of the options for "tab_key" {tab_keys_v1}'
@@ -343,6 +352,7 @@ class LocationMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_medias_v1")
         assert (
             tab_key in tab_keys_v1
         ), f'You must specify one of the options for "tab_key" {tab_keys_a1}'
@@ -371,6 +381,7 @@ class LocationMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_medias_top_a1")
         return self.location_medias_a1(
             location_pk, amount, sleep=sleep, tab_key="edge_location_to_top_posts"
         )
@@ -391,6 +402,7 @@ class LocationMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_medias_top_v1")
         return self.location_medias_v1(location_pk, amount, tab_key="ranked")
 
     def location_medias_top(
@@ -411,6 +423,7 @@ class LocationMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_medias_top")
         return self.location_medias_top_v1(location_pk, amount)
 
     def location_medias_recent_a1(
@@ -433,6 +446,7 @@ class LocationMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_medias_recent_a1")
         return self.location_medias_a1(
             location_pk, amount, sleep=sleep, tab_key="edge_location_to_media"
         )
@@ -455,6 +469,7 @@ class LocationMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_medias_recent_v1")
         return self.location_medias_v1(location_pk, amount, tab_key="recent")
 
     def location_medias_recent(
@@ -475,6 +490,7 @@ class LocationMixin:
         List[Media]
             List of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_medias_recent")
         return self.location_medias_recent_v1(location_pk, amount)
 
     def location_guides_v1(self, location_pk: int) -> List[Guide]:
@@ -490,6 +506,7 @@ class LocationMixin:
         List[Guide]
             List of objects of Guide
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/location.py -> location_guides_v1")
         location_pk = int(location_pk)
         result = self.private_request(f"guides/location/{location_pk}/")
         return [extract_guide_v1(item) for item in (result.get("guides") or [])]
