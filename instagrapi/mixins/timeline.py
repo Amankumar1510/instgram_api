@@ -24,6 +24,7 @@ class ReelsMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/timeline.py -> reels")
         return self.reels_timeline_media("reels", amount, last_media_pk)
 
     def explore_reels(self, amount: int = 10, last_media_pk: int = 0) -> List[Media]:
@@ -41,6 +42,7 @@ class ReelsMixin:
         List[Media]
             A list of objects of Media
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/timeline.py -> explore_reels")
         return self.reels_timeline_media("explore_reels", amount, last_media_pk)
 
     def reels_timeline_media(
@@ -63,7 +65,7 @@ class ReelsMixin:
         List[Media]
             A list of objects of Media
         """
-
+        print(f"[TRACE] ENTERING: instagrapi/mixins/timeline.py -> reels_timeline_media")
         if collection_pk == "reels":
             private_request_endpoint = "clips/connected/"
         elif collection_pk == "explore_reels":

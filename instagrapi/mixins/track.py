@@ -33,6 +33,7 @@ class TrackMixin:
         Path
             Path for the file downloaded
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/track.py -> track_download_by_url")
         url = str(url)
         fname = urlparse(url).path.rsplit("/", 1)[1].strip()
         assert fname, """The URL must contain the path to the file (m4a or mp3)."""
@@ -46,6 +47,7 @@ class TrackMixin:
         return path.resolve()
 
     def _track_request(self, data: Dict[str, Any]) -> Dict:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/track.py -> _track_request")
         try:
             result = self.private_request("clips/music/", data)
         except ClientError as e:
@@ -73,6 +75,7 @@ class TrackMixin:
         Track
             An object of Track type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/track.py -> track_info_by_canonical_id")
         data = {
             "tab_type": "clips",
             "referrer_media_id": "",
@@ -97,6 +100,7 @@ class TrackMixin:
         Dict
             Raw insta response json
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/track.py -> track_info_by_id")
         data = {
             "audio_cluster_id": track_id,
             "original_sound_audio_asset_id": track_id,

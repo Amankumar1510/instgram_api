@@ -32,6 +32,7 @@ class SignUpMixin:
         month: int = None,
         day: int = None,
     ) -> UserShort:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/signup.py -> signup")
         self.get_signup_config()
         check = self.check_email(email)
         if not check.get("valid"):
@@ -91,6 +92,7 @@ class SignUpMixin:
         return extract_user_short(data["created_user"])
 
     def get_signup_config(self) -> dict:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/signup.py -> get_signup_config")
         return self.private_request(
             "consent/get_signup_config/",
             params={"guid": self.uuid, "main_account_selected": False},
@@ -98,6 +100,7 @@ class SignUpMixin:
 
     def check_email(self, email) -> dict:
         """Check available (free, not registred) email"""
+        print(f"[TRACE] ENTERING: instagrapi/mixins/signup.py -> check_email")
         return self.private_request(
             "users/check_email/",
             {
@@ -112,6 +115,7 @@ class SignUpMixin:
 
     def send_verify_email(self, email) -> dict:
         """Send request to receive code to email"""
+        print(f"[TRACE] ENTERING: instagrapi/mixins/signup.py -> send_verify_email")
         return self.private_request(
             "accounts/send_verify_email/",
             {
@@ -125,6 +129,7 @@ class SignUpMixin:
 
     def check_confirmation_code(self, email, code) -> dict:
         """Enter code from email"""
+        print(f"[TRACE] ENTERING: instagrapi/mixins/signup.py -> check_confirmation_code")
         return self.private_request(
             "accounts/check_confirmation_code/",
             {
@@ -136,6 +141,7 @@ class SignUpMixin:
         )
 
     def check_age_eligibility(self, year, month, day):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/signup.py -> check_age_eligibility")
         return self.private.post(
             "consent/check_age_eligibility/",
             data={"_csrftoken": self.token, "day": day, "year": year, "month": month},
@@ -153,6 +159,7 @@ class SignUpMixin:
         day: int = None,
         **kwargs,
     ) -> dict:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/signup.py -> accounts_create")
         # timestamp = datetime.now().strftime("%s")  # Unused variable
         # nonce = f'{username}|{timestamp}|\xb9F"\x8c\xa2I\xaaz|\xf6xz\x86\x92\x91Y\xa5\xaa#f*o%\x7f'  # Unused variable
         data = {
@@ -179,6 +186,7 @@ class SignUpMixin:
         )
 
     def challenge_flow(self, data):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/signup.py -> challenge_flow")
         data = self.challenge_api(data)
         while True:
             if data.get("message") == "challenge_required":
@@ -192,6 +200,7 @@ class SignUpMixin:
                 continue
 
     def challenge_api(self, data):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/signup.py -> challenge_api")
         resp = self.private.get(
             f"https://i.instagram.com/api/v1{data['api_path']}",
             params={
@@ -203,6 +212,7 @@ class SignUpMixin:
         return resp.json()
 
     def challenge_captcha(self, challenge_json_data):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/signup.py -> challenge_captcha")
         api_path = challenge_json_data.get("api_path")
         site_key = challenge_json_data.get("fields", {}).get("sitekey")
         challenge_type = challenge_json_data.get("challengeType")  # For logging/context
@@ -250,6 +260,7 @@ class SignUpMixin:
         return resp.json()
 
     def challenge_submit_phone_number(self, data, phone_number):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/signup.py -> challenge_submit_phone_number")
         api_path = data.get("navigation", {}).get("forward")
         resp = self.private.post(
             f"https://i.instagram.com{api_path}",
@@ -261,6 +272,7 @@ class SignUpMixin:
         return resp.json()
 
     def challenge_verify_sms_captcha(self, data, security_code):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/signup.py -> challenge_verify_sms_captcha")
         api_path = data.get("navigation", {}).get("forward")
         resp = self.private.post(
             f"https://i.instagram.com{api_path}",

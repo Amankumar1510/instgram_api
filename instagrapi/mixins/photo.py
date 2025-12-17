@@ -60,6 +60,7 @@ class DownloadPhotoMixin:
         Path
             Path for the file downloaded
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/photo.py -> photo_download")
         media = self.media_info(media_pk)
         assert media.media_type == 1, "Must been photo"
         filename = "{username}_{media_pk}".format(
@@ -88,6 +89,7 @@ class DownloadPhotoMixin:
         Path
             Path for the file downloaded
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/photo.py -> photo_download_by_url")
         url = str(url)
         fname = urlparse(url).path.rsplit("/", 1)[1]
         filename = "%s.%s" % (filename, fname.rsplit(".", 1)[1]) if filename else fname
@@ -112,6 +114,7 @@ class DownloadPhotoMixin:
         -------
         bytes
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/photo.py -> photo_download_by_url_origin")
         url = str(url)
         response = requests.get(url, stream=True, timeout=self.request_timeout)
         response.raise_for_status()
@@ -149,6 +152,7 @@ class UploadPhotoMixin:
         tuple
             (Upload ID for the media, width, height)
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/photo.py -> photo_rupload")
         assert isinstance(path, Path), f"Path must been Path, now {path} ({type(path)})"
         valid_extensions = [".jpg", ".jpeg", ".png", ".webp"]
         if path.suffix.lower() not in valid_extensions:
@@ -252,6 +256,7 @@ class UploadPhotoMixin:
         Media
             An object of Media class
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/photo.py -> photo_upload")
         path = Path(path)
         valid_extensions = [".jpg", ".jpeg", ".png", ".webp"]
         if path.suffix.lower() not in valid_extensions:
@@ -312,6 +317,7 @@ class UploadPhotoMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/photo.py -> photo_configure")
         usertags = [
             {"user_id": tag.user.pk, "position": [tag.x, tag.y]} for tag in usertags
         ]
@@ -398,6 +404,7 @@ class UploadPhotoMixin:
         Story
             An object of Media class
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/photo.py -> photo_upload_to_story")
         path = Path(path)
         upload_id, width, height = self.photo_rupload(path, upload_id, for_story=True)
         for attempt in range(10):
@@ -481,6 +488,7 @@ class UploadPhotoMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/photo.py -> photo_configure_to_story")
         timestamp = int(time.time())
         mentions = mentions.copy()
         locations = locations.copy()

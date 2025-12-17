@@ -18,6 +18,7 @@ class NotificationMixin:
     """
 
     def notification_settings(self, content_type: str, setting_value: str) -> bool:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_settings")
         data = {
             "content_type": content_type,
             "setting_value": setting_value,
@@ -37,6 +38,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_disable")
         notifications = (
             self.notification_likes,
             self.notification_like_and_comment_on_photo_user_tagged,
@@ -78,6 +80,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_mute_all")
         assert (
             setting_value in MUTE_ALL_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {MUTE_ALL_ITEMS}'
@@ -96,6 +99,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_likes")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -116,6 +120,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_like_and_comment_on_photo_user_tagged")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -136,6 +141,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_user_tagged")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -154,6 +160,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_comments")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -172,6 +179,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_comment_likes")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -190,6 +198,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_first_post")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -208,6 +217,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_new_follower")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -228,6 +238,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_follow_request_accepted")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -246,6 +257,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_connection")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -264,6 +276,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_tagged_in_bio")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -284,6 +297,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_pending_direct_share")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -304,6 +318,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_direct_share_activity")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -324,6 +339,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_direct_group_requests")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -342,6 +358,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_video_call")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -360,6 +377,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_rooms")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -378,6 +396,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_live_broadcast")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -398,6 +417,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_felix_upload_result")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -416,6 +436,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_view_count")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -436,6 +457,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_fundraiser_creator")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -456,6 +478,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_fundraiser_supporter")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -474,6 +497,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_reminders")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -492,6 +516,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_announcements")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -510,6 +535,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_report_updated")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'
@@ -528,6 +554,7 @@ class NotificationMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/notification.py -> notification_login")
         assert (
             setting_value in SETTING_VALUE_ITEMS
         ), f'Unsupported setting_value="{setting_value}" {SETTING_VALUE_ITEMS}'

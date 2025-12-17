@@ -54,6 +54,7 @@ def manual_input_code(self, username: str, choice=None):
     str
         Code
     """
+    print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> manual_input_code")
     code = None
     while True:
         code = input(f"Enter code (6 digits) for {username} ({choice}): ").strip()
@@ -63,6 +64,7 @@ def manual_input_code(self, username: str, choice=None):
 
 
 def manual_change_password(self, username: str):
+    print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> manual_change_password")
     pwd = None
     while not pwd:
         pwd = input(f"Enter password for {username}: ").strip()
@@ -119,6 +121,7 @@ class PrivateRequestMixin:
         -------
         Void
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> small_delay")
         time.sleep(random.uniform(0.75, 3.75))
 
     def very_small_delay(self):
@@ -129,10 +132,12 @@ class PrivateRequestMixin:
         -------
         Void
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> very_small_delay")
         time.sleep(random.uniform(0.175, 0.875))
 
     @property
     def base_headers(self):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> base_headers")
         locale = self.locale.replace("-", "_")
         accept_language = ["en-US"]
         if locale:
@@ -228,6 +233,7 @@ class PrivateRequestMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> set_country")
         self.settings["country"] = self.country = str(country)
         return True
 
@@ -243,6 +249,7 @@ class PrivateRequestMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> set_country_code")
         self.settings["country_code"] = self.country_code = int(country_code)
         return True
 
@@ -260,6 +267,7 @@ class PrivateRequestMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> set_locale")
         user_agent = (self.settings.get("user_agent") or "").replace(
             self.locale, locale
         )
@@ -282,14 +290,17 @@ class PrivateRequestMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> set_timezone_offset")
         self.settings["timezone_offset"] = self.timezone_offset = int(seconds)
         return True
 
     def set_ig_u_rur(self, value):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> set_ig_u_rur")
         self.settings["ig_u_rur"] = self.ig_u_rur = value
         return True
 
     def set_ig_www_claim(self, value):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> set_ig_www_claim")
         self.settings["ig_www_claim"] = self.ig_www_claim = value
         return True
 
@@ -308,6 +319,7 @@ class PrivateRequestMixin:
         extra_sig=None,
         domain: str = None,
     ):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> _send_private_request")
         self.last_response = None
         self.last_json = last_json = {}  # for Sentry context in traceback
         self.private.headers.update(self.base_headers)
@@ -490,6 +502,7 @@ class PrivateRequestMixin:
         return last_json
 
     def request_log(self, response):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> request_log")
         self.private_request_logger.info(
             "%s [%s] %s %s (%s)",
             self.username,
@@ -514,6 +527,7 @@ class PrivateRequestMixin:
         extra_sig=None,
         domain: str = None,
     ):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/private.py -> private_request")
         if self.authorization:
             if not headers:
                 headers = {}

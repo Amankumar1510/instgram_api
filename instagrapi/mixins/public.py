@@ -85,6 +85,7 @@ class PublicRequestMixin:
         retries_count=3,
         retries_timeout=2,
     ):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/public.py -> public_request")
         kwargs = dict(
             data=data,
             params=params,
@@ -126,6 +127,7 @@ class PublicRequestMixin:
     def _send_public_request(
         self, url, data=None, params=None, headers=None, return_json=False, stream=None, timeout=None, update_headers=None
     ):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/public.py -> _send_public_request")
         self.public_requests_count += 1
         if headers:
             if update_headers in [None, True] :
@@ -219,6 +221,7 @@ class PublicRequestMixin:
             self.last_response_ts = time.time()
 
     def public_a1_request(self, endpoint, data=None, params=None, headers=None):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/public.py -> public_a1_request")
         url = (self.PUBLIC_API_URL + str(endpoint)).replace(
             ".com//", ".com/"
         )  # (jarrodnorwell) fixed KeyError: 'data', fixed // error
@@ -231,6 +234,7 @@ class PublicRequestMixin:
         return response.get("graphql") or response
 
     def public_a1_request_user_info_by_username(self, username, data=None, params=None):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/public.py -> public_a1_request_user_info_by_username")
         params = params or {}
         url = self.PUBLIC_API_URL + f"api/v1/users/web_profile_info/?username={username}"
         headers = {'x-ig-app-id': '936619743392459'}
@@ -248,6 +252,7 @@ class PublicRequestMixin:
         params=None,
         headers=None,
     ):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/public.py -> public_graphql_request")
         assert query_id or query_hash, "Must provide valid one of: query_id, query_hash"
         default_params = {"variables": json.dumps(variables, separators=(",", ":"))}
         if query_id:
@@ -305,6 +310,7 @@ class PublicRequestMixin:
 class TopSearchesPublicMixin:
     def top_search(self, query):
         """Anonymous IG search request"""
+        print(f"[TRACE] ENTERING: instagrapi/mixins/public.py -> top_search")
         url = "https://www.instagram.com/web/search/topsearch/"
         params = {
             "context": "blended",
@@ -318,6 +324,7 @@ class TopSearchesPublicMixin:
 
 class ProfilePublicMixin:
     def location_feed(self, location_id, count=16, end_cursor=None):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/public.py -> location_feed")
         if count > 50:
             raise ValueError("Count cannot be greater than 50")
         variables = {
@@ -332,6 +339,7 @@ class ProfilePublicMixin:
         return data["location"]
 
     def profile_related_info(self, profile_id):
+        print(f"[TRACE] ENTERING: instagrapi/mixins/public.py -> profile_related_info")
         variables = {
             "user_id": profile_id,
             "include_chaining": True,

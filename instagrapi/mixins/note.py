@@ -13,6 +13,7 @@ class NoteMixin:
         List[Notes]
             List of all the Notes in Direct
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/note.py -> get_notes")
         result = self.private_request("notes/get_notes/")
         assert result.get("status", "") == "ok", "Failed to retrieve Notes in Direct"
 
@@ -30,6 +31,7 @@ class NoteMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/note.py -> last_seen_update_note")
         result = self.private_request(
             "notes/update_notes_last_seen_timestamp/", data={"_uuid": self.uuid}
         )
@@ -49,6 +51,7 @@ class NoteMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/note.py -> delete_note")
         result = self.private_request(
             "notes/delete_note/", data={"id": note_id, "_uuid": self.uuid}
         )
@@ -72,6 +75,7 @@ class NoteMixin:
             Created Note
 
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/note.py -> create_note")
         assert self.user_id, "Login required"
         assert audience in (
             0,

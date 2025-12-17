@@ -31,6 +31,7 @@ class TOTP:
         :param input: the HMAC counter value to use as the OTP input.
         Usually either the counter, or the computed integer based on the Unix timestamp
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/totp.py -> generate_otp")
         if input < 0:
             raise ValueError("input must be positive integer")
         hasher = hmac.new(
@@ -50,6 +51,7 @@ class TOTP:
         return str_code
 
     def byte_secret(self) -> bytes:
+        print(f"[TRACE] ENTERING: instagrapi/mixins/totp.py -> byte_secret")
         secret = self.secret
         missing_padding = len(secret) % 8
         if missing_padding != 0:
@@ -63,6 +65,7 @@ class TOTP:
         bytestring, which is fed to the HMAC
         along with the secret
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/totp.py -> int_to_bytestring")
         result = bytearray()
         while i != 0:
             result.append(i & 0xFF)
@@ -76,6 +79,7 @@ class TOTP:
         """
         Generate TOTP code
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/totp.py -> code")
         now = datetime.datetime.now()
         timecode = int(time.mktime(now.timetuple()) / self.interval)
         return self.generate_otp(timecode)
@@ -91,6 +95,7 @@ class TOTPMixin:
         str
             TOTP seed (also known as "token" and "secret key")
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/totp.py -> totp_generate_seed")
         result = self.private_request(
             "accounts/generate_two_factor_totp_key/", data=self.with_default_data({})
         )
@@ -110,6 +115,7 @@ class TOTPMixin:
         List[str]
             Backup codes
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/totp.py -> totp_enable")
         result = self.private_request(
             "accounts/enable_totp_two_factor/",
             data=self.with_default_data({"verification_code": verification_code}),
@@ -124,6 +130,7 @@ class TOTPMixin:
         -------
         bool
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/totp.py -> totp_disable")
         result = self.private_request(
             "accounts/disable_totp_two_factor/", data=self.with_default_data({})
         )
@@ -143,4 +150,5 @@ class TOTPMixin:
         str
             TOTP code
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/totp.py -> totp_generate_code")
         return TOTP(seed).code()

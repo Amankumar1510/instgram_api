@@ -36,6 +36,7 @@ class StoryMixin:
         --------
         https://www.instagram.com/stories/dhbastards/2581281926631793076/ -> 2581281926631793076
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> story_pk_from_url")
         path = urlparse(url).path
         parts = [p for p in path.split("/") if p and p.isdigit()]
         return str(parts[0])
@@ -54,6 +55,7 @@ class StoryMixin:
         Story
             An object of Story type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> story_info_v1")
         story_id = self.media_id(story_pk)
         story_pk, user_id = story_id.split("_")
 
@@ -81,6 +83,7 @@ class StoryMixin:
         Story
             An object of Story type
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> story_info")
         if not use_cache or story_pk not in self._stories_cache:
             story = self.story_info_v1(story_pk)
             self._stories_cache[story_pk] = story
@@ -100,6 +103,7 @@ class StoryMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> story_delete")
         assert self.user_id, "Login required"
         media_id = self.media_id(story_pk)
         self._stories_cache.pop(self.media_pk(media_id), None)
@@ -123,10 +127,12 @@ class StoryMixin:
         List[UserShort]
             A list of objects of UserShort for each user_id
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> users_stories_gql")
         assert isinstance(user_ids, list), "user_ids should be a list of user_id"
         self.inject_sessionid_to_public()
 
         def _userid_chunks():
+            print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> _userid_chunks")
             assert user_ids is not None
             user_ids_per_query = 50
             for i in range(0, len(user_ids), user_ids_per_query):
@@ -165,6 +171,7 @@ class StoryMixin:
         List[UserShort]
             A list of objects of UserShort for each user_id
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> user_stories_gql")
         user = self.users_stories_gql([user_id], amount=amount)[0]
         stories = deepcopy(user.stories)
         if amount:
@@ -186,6 +193,7 @@ class StoryMixin:
         List[Story]
             A list of objects of Story
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> user_stories_v1")
         params = {
             "supported_capabilities_new": json.dumps(config.SUPPORTED_CAPABILITIES)
         }
@@ -218,6 +226,7 @@ class StoryMixin:
         List[Story]
             A list of objects of STory
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> user_stories")
         try:
             return self.user_stories_gql(user_id, amount)
         except ClientNotFoundError as e:
@@ -240,6 +249,7 @@ class StoryMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> story_seen")
         assert isinstance(story_pks, list), "story_pks should be a list of story.pk"
         return self.media_seen(
             [self.media_id(mid) for mid in story_pks],
@@ -261,6 +271,7 @@ class StoryMixin:
         Path
             Path for the file downloaded
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> story_download")
         story = self.story_info(story_pk)
         url = str(story.thumbnail_url if story.media_type == 1 else story.video_url)
         return self.story_download_by_url(url, filename, folder)
@@ -286,6 +297,7 @@ class StoryMixin:
         Path
             Path for the file downloaded
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> story_download_by_url")
         url = str(url)
         fname = urlparse(url).path.rsplit("/", 1)[1].strip()
         assert fname, (
@@ -320,6 +332,7 @@ class StoryMixin:
         List[UserShort]
             A list of objects of UserShort
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> story_viewers")
         users = []
         next_max_id = None
         story_pk = self.media_pk(story_pk)
@@ -363,6 +376,7 @@ class StoryMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> story_like")
         assert self.user_id, "Login required"
         media_id = self.media_id(story_id)
         data = {
@@ -393,6 +407,7 @@ class StoryMixin:
         bool
             A boolean value
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> story_unlike")
         return self.story_like(story_id, revert=True)
 
     def sticker_tray(self) -> dict:
@@ -404,6 +419,7 @@ class StoryMixin:
         dict
             Sticker Tray
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/story.py -> sticker_tray")
         data = {"_uid": self.user_id, "type": "static_stickers", "_uuid": self.uuid}
         result = self.private_request(
             "creatives/sticker_tray/",

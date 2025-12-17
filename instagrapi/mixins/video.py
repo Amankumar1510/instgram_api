@@ -53,6 +53,7 @@ class DownloadVideoMixin:
         Path
             Path for the file downloaded
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/video.py -> video_download")
         media = self.media_info(media_pk)
         assert media.media_type == 2, "Must been video"
         filename = "{username}_{media_pk}".format(
@@ -81,6 +82,7 @@ class DownloadVideoMixin:
         Path
             Path for the file downloaded
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/video.py -> video_download_by_url")
         url = str(url)
         fname = urlparse(url).path.rsplit("/", 1)[1]
         filename = "%s.%s" % (filename, fname.rsplit(".", 1)[1]) if filename else fname
@@ -125,6 +127,7 @@ class DownloadVideoMixin:
         bytes
             Bytes for the file downloaded
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/video.py -> video_download_by_url_origin")
         response = requests.get(url, stream=True, timeout=self.request_timeout)
         response.raise_for_status()
         content_length = int(response.headers.get("Content-Length"))
@@ -167,6 +170,7 @@ class UploadVideoMixin:
         tuple
             (Upload ID for the media, width, height)
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/video.py -> video_rupload")
         assert isinstance(path, Path), f"Path must been Path, now {path} ({type(path)})"
         upload_id = str(int(time.time() * 1000))
         width, height, duration, thumbnail = analyze_video(path, thumbnail)
@@ -271,6 +275,7 @@ class UploadVideoMixin:
         Media
             An object of Media class
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/video.py -> video_upload")
         path = Path(path)
         if thumbnail is not None:
             thumbnail = Path(thumbnail)
@@ -349,6 +354,7 @@ class UploadVideoMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/video.py -> video_configure")
         self.photo_rupload(Path(thumbnail), upload_id)
         usertags = [
             {"user_id": tag.user.pk, "position": [tag.x, tag.y]} for tag in usertags
@@ -423,6 +429,7 @@ class UploadVideoMixin:
         Story
             An object of Media class
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/video.py -> video_upload_to_story")
         path = Path(path)
         if thumbnail is not None:
             thumbnail = Path(thumbnail)
@@ -532,6 +539,7 @@ class UploadVideoMixin:
         Dict
             A dictionary of response from the call
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/video.py -> video_configure_to_story")
         timestamp = int(time.time())
         mentions = mentions.copy()
         locations = locations.copy()
@@ -882,6 +890,7 @@ class UploadVideoMixin:
         DirectMessage
             An object of DirectMessage class
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/video.py -> video_upload_to_direct")
         path = Path(path)
         if thumbnail is not None:
             thumbnail = Path(thumbnail)
@@ -934,7 +943,7 @@ def analyze_video(path: Path, thumbnail: Path = None) -> tuple:
     Tuple
         (width, height, duration, thumbnail)
     """
-
+    print(f"[TRACE] ENTERING: instagrapi/mixins/video.py -> analyze_video")
     try:
         import moviepy.editor as mp
     except ImportError:

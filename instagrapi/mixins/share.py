@@ -19,6 +19,7 @@ class ShareMixin:
         Share
             Share object
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/share.py -> share_info")
         if isinstance(code, str):
             code = code.encode()
         # ignore example from instagram: b'highli\xb1\xdb\x1dght:17988089629383770'
@@ -44,6 +45,7 @@ class ShareMixin:
         Share
             Share object
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/share.py -> share_info_by_url")
         return self.share_info(self.share_code_from_url(url))
 
     def share_code_from_url(self, url: str) -> str:
@@ -60,6 +62,7 @@ class ShareMixin:
         str
             Share code
         """
+        print(f"[TRACE] ENTERING: instagrapi/mixins/share.py -> share_code_from_url")
         path = urlparse(url).path
         parts = [p for p in path.split("/") if p]
         return parts.pop()
