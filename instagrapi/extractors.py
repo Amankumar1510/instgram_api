@@ -41,6 +41,7 @@ MEDIA_TYPES_GQL = {"GraphImage": 1, "GraphVideo": 2, "GraphSidecar": 8, "StoryVi
 
 def extract_media_v1(data):
     """Extract media from Private API"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_media_v1")
     media = deepcopy(data)
     if "video_versions" in media:
         # Select Best Quality by Resolutiuon
@@ -85,6 +86,7 @@ def extract_media_v1(data):
 
 def extract_media_v1_xma(data):
     """Extract media from Private API"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_media_v1_xma")
     media = deepcopy(data)
 
     # media["media_type"] = 10
@@ -105,6 +107,7 @@ def extract_media_v1_xma(data):
 
 def extract_media_gql(data):
     """Extract media from GraphQL"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_media_gql")
     media = deepcopy(data)
     user = extract_user_short(media["owner"])
     # if "full_name" in user:
@@ -168,6 +171,8 @@ def extract_media_gql(data):
 
 
 def extract_resource_v1(data):
+    """Extract resource from Private API"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_resource_v1")
     if "video_versions" in data:
         data["video_url"] = sorted(
             data["video_versions"], key=lambda o: o["height"] * o["width"]
@@ -180,18 +185,22 @@ def extract_resource_v1(data):
 
 
 def extract_resource_gql(data):
+    """Extract resource from GraphQL"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_resource_gql")
     data["media_type"] = MEDIA_TYPES_GQL[data["__typename"]]
     return Resource(pk=data["id"], thumbnail_url=data["display_url"], **data)
 
 
 def extract_usertag(data):
     """Extract user tag"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_usertag")
     x, y = data.get("position", [data.get("x"), data.get("y")])
     return Usertag(user=extract_user_short(data["user"]), x=x, y=y)
 
 
 def extract_user_short(data):
     """Extract User Short info"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_user_short")
     data["pk"] = data.get("id", data.get("pk", None))
     assert data["pk"], f'User without pk "{data}"'
     return UserShort(**data)
@@ -199,12 +208,14 @@ def extract_user_short(data):
 
 def extract_broadcast_channel(data):
     """ Extract broadcast channel infos """
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_broadcast_channel")
     channels = data["pinned_channels_info"]["pinned_channels_list"]
     return [Broadcast(**channel) for channel in channels]
 
 
 def extract_user_gql(data):
     """For Public GraphQL API"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_user_gql")
     # data["broadcast_channel"] = extract_broadcast_channel(data)
     return User(
         # pk=data["id"],
@@ -220,6 +231,7 @@ def extract_user_gql(data):
 
 def extract_user_v1(data):
     """For Private API"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_user_v1")
     data["broadcast_channel"] = extract_broadcast_channel(data)
     data["external_url"] = data.get("external_url") or None
     versions = data.get("hd_profile_pic_versions")
@@ -230,6 +242,7 @@ def extract_user_v1(data):
 
 def extract_location(data):
     """Extract location info"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_location")
     if not data:
         return None
     data["pk"] = data.get("id", data.get("pk", data.get("location_id", None)))
@@ -252,6 +265,7 @@ def extract_location(data):
 
 def extract_comment(data):
     """Extract comment"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_comment")
     data["has_liked"] = data.get("has_liked_comment")
     data["like_count"] = data.get("comment_like_count")
     return Comment(**data)
@@ -266,6 +280,7 @@ def extract_collection(data):
     'collection_media_count': 1,
     'cover_media': {...}
     """
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_collection")
     data = {key.replace("collection_", ""): val for key, val in data.items()}
     # data['pk'] = data.get('id')
     return Collection(**data)
@@ -273,10 +288,13 @@ def extract_collection(data):
 
 def extract_media_oembed(data):
     """Return short version of Media"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_media_oembed")
     return MediaOembed(**data)
 
 
 def extract_direct_thread(data):
+    """Extract direct thread"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_direct_thread")
     data["pk"] = data.get("thread_v2_id")
     data["id"] = data.get("thread_id")
     data["messages"] = []
@@ -321,16 +339,22 @@ def extract_direct_thread(data):
 
 
 def extract_direct_short_thread(data):
+    """Extract direct short thread"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_direct_short_thread")
     data["users"] = [extract_user_short(u) for u in data["users"]]
     data["id"] = data.get("thread_id")
     return DirectShortThread(**data)
 
 
 def extract_direct_response(data):
+    """Extract direct response"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_direct_response")
     return DirectResponse(**data)
 
 
 def extract_reply_message(data):
+    """Extract reply message"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_reply_message")
     data["id"] = data.get("item_id")
     if "media_share" in data:
         ms = data["media_share"]
@@ -353,6 +377,8 @@ def extract_reply_message(data):
 
 
 def extract_direct_message(data):
+    """Extract direct message"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_direct_message")
     data["id"] = data.get("item_id")
     if "replied_to_message" in data:
         data["reply"] = extract_reply_message(data["replied_to_message"])
@@ -428,6 +454,8 @@ def extract_direct_message(data):
 
 
 def extract_direct_media(data):
+    """Extract direct media"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_direct_media")
     media = deepcopy(data)
     if "video_versions" in media:
         # Select Best Quality by Resolutiuon
@@ -447,18 +475,24 @@ def extract_direct_media(data):
 
 
 def extract_account(data):
+    """Extract account info"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_account")
     data["pk"] = str(data["pk"])
     data["external_url"] = data.get("external_url") or None
     return Account(**data)
 
 
 def extract_hashtag_gql(data):
+    """For Public GraphQL API"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_hashtag_gql")
     data["media_count"] = data.get("edge_hashtag_to_media", {}).get("count")
     data["profile_pic_url"] = data.get("profile_pic_url") or None
     return Hashtag(**data)
 
 
 def extract_hashtag_v1(data):
+    """For Private API"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_hashtag_v1")
     data["allow_following"] = data.get("allow_following") == 1
     data["profile_pic_url"] = data.get("profile_pic_url") or None
     return Hashtag(**data)
@@ -466,6 +500,7 @@ def extract_hashtag_v1(data):
 
 def extract_story_v1(data):
     """Extract story from Private API"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_story_v1")
     story = deepcopy(data)
     story["pk"] = str(story.get("pk"))
     if "video_versions" in story:
@@ -508,6 +543,7 @@ def extract_story_v1(data):
 
 def extract_story_gql(data):
     """Extract story from Public API"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_story_gql")
     story = deepcopy(data)
     if "video_resources" in story:
         # Select Best Quality by Resolutiuon
@@ -551,6 +587,8 @@ def extract_story_gql(data):
 
 
 def extract_highlight_v1(data):
+    """Extract highlight from Private API"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_highlight_v1")
     highlight = deepcopy(data)
     highlight["pk"] = highlight["id"].split(":")[1]
     highlight["items"] = [extract_story_v1(item) for item in highlight.get("items", [])]
@@ -558,12 +596,16 @@ def extract_highlight_v1(data):
 
 
 def extract_guide_v1(data):
+    """Extract guide from Private API"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_guide_v1")
     item = deepcopy(data.get("summary") or {})
     item["cover_media"] = extract_media_v1(item["cover_media"])
     return Guide(**item)
 
 
 def extract_track(data):
+    """Extract track from Private API"""
+    print(f"[TRACE] ENTERING: instagrapi/extractors.py -> extract_track")
     data["cover_artwork_uri"] = data.get("cover_artwork_uri") or None
     data["cover_artwork_thumbnail_uri"] = (
         data.get("cover_artwork_thumbnail_uri") or None

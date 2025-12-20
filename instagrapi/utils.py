@@ -16,6 +16,7 @@ class InstagramIdCodec:
     @staticmethod
     def encode(num, alphabet=ENCODING_CHARS):
         """Covert a numeric value to a shortcode."""
+        print(f"[TRACE] ENTERING: instagrapi/utils.py -> encode")
         num = int(num)
         if num == 0:
             return alphabet[0]
@@ -31,6 +32,7 @@ class InstagramIdCodec:
     @staticmethod
     def decode(shortcode, alphabet=ENCODING_CHARS):
         """Covert a shortcode to a numeric value."""
+        print(f"[TRACE] ENTERING: instagrapi/utils.py -> decode")
         base = len(alphabet)
         strlen = len(shortcode)
         num = 0
@@ -63,6 +65,7 @@ def generate_signature(data):
     str
         e.g. "signed_body=SIGNATURE.test"
     """
+    print(f"[TRACE] ENTERING: instagrapi/utils.py -> generate_signature")
     return "signed_body=SIGNATURE.{data}".format(data=urllib.parse.quote_plus(data))
 
 
@@ -92,6 +95,7 @@ def json_value(data: dict, *args: Union[str, int], default: Any = None) -> Any:
     Returns:
         The value found at the specified path, or default if not found
     """
+    print(f"[TRACE] ENTERING: instagrapi/utils.py -> json_value")
     cur: Any = data
     for a in args:
         try:
@@ -108,6 +112,7 @@ def json_value(data: dict, *args: Union[str, int], default: Any = None) -> Any:
 
 def gen_token(size=10, symbols=False):
     """Gen CSRF or something else token"""
+    print(f"[TRACE] ENTERING: instagrapi/utils.py -> gen_token")
     chars = string.ascii_letters + string.digits
     if symbols:
         chars += string.punctuation
@@ -116,29 +121,38 @@ def gen_token(size=10, symbols=False):
 
 def gen_password(size=10):
     """Gen password"""
+    print(f"[TRACE] ENTERING: instagrapi/utils.py -> gen_password")
     return gen_token(size)
 
 
 def dumps(data):
     """Json dumps format as required Instagram"""
+    print(f"[TRACE] ENTERING: instagrapi/utils.py -> dumps")
     return InstagrapiJSONEncoder(separators=(",", ":")).encode(data)
 
 
 def generate_jazoest(symbols: str) -> str:
+    """Generate jazoest value from symbols string"""
+    print(f"[TRACE] ENTERING: instagrapi/utils.py -> generate_jazoest")
     amount = sum(ord(s) for s in symbols)
     return f"2{amount}"
 
 
 def date_time_original(localtime):
+    """Generate date time original string from localtime struct"""
+    print(f"[TRACE] ENTERING: instagrapi/utils.py -> date_time_original")
     # return time.strftime("%Y:%m:%d+%H:%M:%S", localtime)
     return time.strftime("%Y%m%dT%H%M%S.000Z", localtime)
 
 
 def random_delay(delay_range: list):
     """Trigger sleep of a random floating number in range min_sleep to max_sleep"""
+    print(f"[TRACE] ENTERING: instagrapi/utils.py -> random_delay")
     return time.sleep(random.uniform(delay_range[0], delay_range[1]))
 
 
 def vassert(pred, message):
+    """Validation assert"""
+    print(f"[TRACE] ENTERING: instagrapi/utils.py -> vassert")
     if not pred:
         raise ValidationError(message)

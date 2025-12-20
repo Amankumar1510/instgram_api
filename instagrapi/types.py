@@ -18,6 +18,7 @@ class TypesBaseModel(BaseModel):
 
 
 def validate_external_url(cls, v):
+    print(f"[TRACE] ENTERING: instagrapi/types.py -> validate_external_url")
     if v is None or (v.startswith("http") and "://" in v) or isinstance(v, str):
         return v
     raise ValidationError(

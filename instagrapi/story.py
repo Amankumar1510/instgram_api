@@ -92,6 +92,7 @@ class StoryBuilder:
         StoryBuild
             An object of StoryBuild
         """
+        print(f"[TRACE] ENTERING: instagrapi/story.py -> build_main")
         clips = []
         stickers = []
         # Background
@@ -231,6 +232,7 @@ class StoryBuilder:
         StoryBuild
             An object of StoryBuild
         """
+        print(f"[TRACE] ENTERING: instagrapi/story.py -> video")
         clip = VideoFileClip(str(self.path), has_mask=True)
         build = self.build_main(clip, max_duration, font, fontsize, color, link)
         clip.close()
@@ -263,7 +265,7 @@ class StoryBuilder:
         StoryBuild
             An object of StoryBuild
         """
-
+        print(f"[TRACE] ENTERING: instagrapi/story.py -> photo")
         with Image.open(self.path) as im:
             image_width, image_height = im.size
 

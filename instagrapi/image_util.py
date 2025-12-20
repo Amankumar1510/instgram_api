@@ -27,6 +27,7 @@ def calc_resize(max_size, curr_size, min_size=(0, 0)):
     :param min_size: tuple of (width, height)
     :return:
     """
+    print(f"[TRACE] ENTERING: instagrapi/image_util.py -> calc_resize")
     max_width, max_height = max_size or (0, 0)
     min_width, min_height = min_size or (0, 0)
 
@@ -70,6 +71,7 @@ def calc_crop(aspect_ratios, curr_size):
     :param curr_size: tuple of (width, height)
     :return:
     """
+    print(f"[TRACE] ENTERING: instagrapi/image_util.py -> calc_crop")
     try:
         if len(aspect_ratios) == 2:
             min_aspect_ratio = float(aspect_ratios[0])
@@ -102,6 +104,7 @@ def calc_crop(aspect_ratios, curr_size):
 
 def is_remote(media):
     """Detect if media specified is a url"""
+    print(f"[TRACE] ENTERING: instagrapi/image_util.py -> is_remote")
     if re.match(r"^https?://", media):
         return True
     return False
@@ -126,6 +129,7 @@ def prepare_image(
              - **min_size**: tuple of (min_width,  min_height)
     :return:
     """
+    print(f"[TRACE] ENTERING: instagrapi/image_util.py -> prepare_image")
     min_size = kwargs.pop("min_size", (320, 167))
     if is_remote(img):
         res = requests.get(img, timeout=5)
@@ -189,6 +193,7 @@ def prepare_video(
          choose ultrafast when you are in a hurry and file size does not matter.
     :return:
     """
+    print(f"[TRACE] ENTERING: instagrapi/image_util.py -> prepare_video")
     from moviepy.video.fx.all import crop, resize
     from moviepy.video.io.VideoFileClip import VideoFileClip
 
