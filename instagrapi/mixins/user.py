@@ -153,7 +153,7 @@ class UserMixin:
         User
             An object of User type
         """
-        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_info_by_username")
+        print(f"[TRACE] ENTERING: instagrapi/mixins/user.py -> user_info_by_username_gql")
         username = str(username).lower()
         temporary_public_headers = {
             "Host": "www.instagram.com",
